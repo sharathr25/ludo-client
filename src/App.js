@@ -1,14 +1,23 @@
-import React from 'react'
-import { Stage } from 'react-konva'
-import Board from './Components/Board'
-import Pawns from './Components/Pawns'
+import React, { useContext, useEffect } from 'react'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import GameRoom from './GameRoom'
+import Home from './Home'
+import SocketContext from './SocketContext'
 
 const App = () => {
   return (
-    <Stage width={window.innerWidth} height={window.innerHeight}>
-      <Board />
-      <Pawns />
-    </Stage>
+    <div>
+      <Router>
+        <Switch>
+          <Route path='/' exact>
+            <Home />
+          </Route>
+          <Route path='/room/:roomId'>
+            <GameRoom />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   )
 }
 

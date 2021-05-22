@@ -1,16 +1,17 @@
 import React from 'react'
-import { Layer, Rect, Line, Circle } from 'react-konva'
+import { Layer, Rect, Line } from 'react-konva'
 import {
   BOARD_SIZE,
   PLAYER_HOME_SIZE,
   WIDTH_OF_SQUARES_ALONG_HOME,
   COLORS,
-  SMALL_BOX_SIZE
+  SMALL_BOX_SIZE,
+  BOARD_CONTAINER_SIZE
 } from '../constants'
 import { getPlayerHomeSquares } from '../utils'
 
-const boardX = (window.innerWidth - BOARD_SIZE) / 2
-const boardY = (window.innerHeight - BOARD_SIZE) / 2
+const boardX = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2
+const boardY = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2
 
 const colors = {
   H1: COLORS.RED,

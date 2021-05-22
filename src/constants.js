@@ -1,3 +1,4 @@
+export const BOARD_CONTAINER_SIZE = 750
 export const NO_OF_SQUARES_BETWEEN_HOMES = 3
 export const NO_OF_SQUARES_ALONG_HOMES = 6
 export const SMALL_BOX_SIZE = 50
