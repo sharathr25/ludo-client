@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router'
+import { v4 as uuidv4 } from 'uuid'
 import createRoomApi from './api/createRoom'
 import SocketContext from './SocketContext'
 
@@ -19,10 +20,12 @@ const Home = () => {
 
   const joinRoom = async () => {
     try {
+      const id = uuidv4()
       await socket.joinChannel(`room:${roomId}`)
       sessionStorage.setItem('ROOM_ID', roomId)
+      sessionStorage.setItem('MY_ID', id)
       history.push(`/room/${state.roomId}`)
-      socket.send('JOIN_GAME', { name })
+      socket.send('JOIN_GAME', { name, id })
     } catch (error) {
       console.log(error)
     }
@@ -30,11 +33,13 @@ const Home = () => {
 
   const createRoom = async () => {
     try {
-      const { data: roomId } = await createRoomApi({ name })
+      const id = uuidv4()
+      const { data: roomId } = await createRoomApi({ name, id })
       await socket.joinChannel(`room:${roomId}`)
       sessionStorage.setItem('ROOM_ID', roomId)
+      sessionStorage.setItem('MY_ID', id)
       history.push(`/room/${roomId}`)
-      socket.send('JOIN_GAME', { name })
+      socket.send('JOIN_GAME', { name, id })
     } catch (error) {
       console.log(error)
     }
