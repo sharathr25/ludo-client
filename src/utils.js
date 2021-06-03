@@ -7,31 +7,35 @@ export const getPlayerHomeInnerSquare = (home, margin) => {
   }
 }
 
-export const getPlayerHomeSquares = (
-  homeInnerSquare,
-  playerHomeSize,
-  smallBoxSize
-) => {
+export const getPlayerHomeSquares = (home, playerHomeSize, smallBoxSize) => {
   return [
     {
-      id: `${homeInnerSquare.id}HS1`,
-      x: homeInnerSquare.x + playerHomeSize / 6 + smallBoxSize / 2,
-      y: homeInnerSquare.y + playerHomeSize / 6 + smallBoxSize / 2
+      squareNumber: 1,
+      group: 'HOME',
+      seat: home.seat,
+      x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
+      y: home.y + playerHomeSize / 6 + smallBoxSize / 2
     },
     {
-      id: `${homeInnerSquare.id}HS2`,
-      x: homeInnerSquare.x + playerHomeSize / 2 + smallBoxSize / 2,
-      y: homeInnerSquare.y + playerHomeSize / 2 + smallBoxSize / 2
+      squareNumber: 2,
+      group: 'HOME',
+      seat: home.seat,
+      x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
+      y: home.y + playerHomeSize / 2 + smallBoxSize / 2
     },
     {
-      id: `${homeInnerSquare.id}HS3`,
-      x: homeInnerSquare.x + playerHomeSize / 2 + smallBoxSize / 2,
-      y: homeInnerSquare.y + playerHomeSize / 6 + smallBoxSize / 2
+      squareNumber: 3,
+      group: 'HOME',
+      seat: home.seat,
+      x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
+      y: home.y + playerHomeSize / 6 + smallBoxSize / 2
     },
     {
-      id: `${homeInnerSquare.id}HS4`,
-      x: homeInnerSquare.x + playerHomeSize / 6 + smallBoxSize / 2,
-      y: homeInnerSquare.y + playerHomeSize / 2 + smallBoxSize / 2
+      squareNumber: 4,
+      group: 'HOME',
+      seat: home.seat,
+      x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
+      y: home.y + playerHomeSize / 2 + smallBoxSize / 2
     }
   ]
 }

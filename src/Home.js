@@ -21,6 +21,7 @@ const Home = () => {
   const joinRoom = async () => {
     try {
       const id = uuidv4()
+      socket.connect({ playerId: id })
       await socket.joinChannel(`room:${roomId}`)
       sessionStorage.setItem('ROOM_ID', roomId)
       sessionStorage.setItem('MY_ID', id)
@@ -35,6 +36,7 @@ const Home = () => {
     try {
       const id = uuidv4()
       const { data: roomId } = await createRoomApi({ name, id })
+      socket.connect({ playerId: id })
       await socket.joinChannel(`room:${roomId}`)
       sessionStorage.setItem('ROOM_ID', roomId)
       sessionStorage.setItem('MY_ID', id)

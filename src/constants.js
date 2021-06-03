@@ -15,10 +15,10 @@ export const PLAYER_HOME_INNER_SQUARE_SIZE =
 
 export const COLORS = {
   LIGHT_GRAY: '#f5f5f5',
-  GREEN: 'green',
-  RED: 'red',
-  YELLOW: 'yellow',
-  BLUE: 'blue',
+  GREEN: '#2ec1ac',
+  RED: '#ea5455',
+  YELLOW: '#fdb827',
+  BLUE: '#035aa6',
   ORANGE: 'orange',
   WHITE: 'white',
   BLACK: 'black'

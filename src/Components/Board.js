@@ -25,25 +25,25 @@ const playerHomes = [
     x: boardX,
     y: boardY,
     fill: colors.H1,
-    id: 'H1'
+    seat: 1
   },
   {
     x: boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
     y: boardY,
     fill: colors.H2,
-    id: 'H2'
+    seat: 2
   },
   {
     x: boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
     y: boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
     fill: colors.H3,
-    id: 'H3'
+    seat: 3
   },
   {
     x: boardX,
     y: boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
     fill: colors.H4,
-    id: 'H4'
+    seat: 4
   }
 ]
 
@@ -60,105 +60,125 @@ const playerHomeSquares = playerHomes.reduce(
 )
 
 const playerHome1ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
-  id: `H1CS${n}`,
+  squareNumber: n,
+  group: 'HOME_COLUMN',
+  seat: 1,
   x: boardX + PLAYER_HOME_SIZE - SMALL_BOX_SIZE * (5 - i),
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE,
   fill: colors.H1
 }))
 
 const playerHome2ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
-  id: `H2CS${n}`,
+  squareNumber: n,
+  group: 'HOME_COLUMN',
+  seat: 2,
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE,
   y: boardY + SMALL_BOX_SIZE * (1 + i),
   fill: colors.H2
 }))
 
 const playerHome3ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
-  id: `H3CS${n}`,
+  squareNumber: n,
+  group: 'HOME_COLUMN',
+  seat: 3,
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (7 - i),
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE,
   fill: colors.H3
 }))
 
 const playerHome4ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
-  id: `H4CS${n}`,
+  squareNumber: n,
+  group: 'HOME_COLUMN',
+  seat: 4,
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE,
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (7 - i),
   fill: colors.H4
 }))
 
 const squares1to5 = [1, 2, 3, 4, 5].map((n, i) => ({
-  id: n + '',
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE - SMALL_BOX_SIZE * (5 - i),
   y: boardY + PLAYER_HOME_SIZE,
   fill: i === 0 ? colors.H1 : null
 }))
 
 const squares6to10 = [6, 7, 8, 9, 10].map((n, i) => ({
-  id: n + '',
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE,
   y: boardY + PLAYER_HOME_SIZE - SMALL_BOX_SIZE * (i + 1)
 }))
 
 const squares11to13 = [11, 12, 13].map((n, i) => ({
-  id: n + '',
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * i,
   y: boardY
 }))
 
 const squares14to18 = [14, 15, 16, 17, 18].map((n, i) => ({
-  id: n + '',
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 2,
   y: boardY + SMALL_BOX_SIZE * (1 + i),
   fill: i === 0 ? colors.H2 : null
 }))
 
 const squares19to24 = [19, 20, 21, 22, 23].map((n, i) => ({
-  id: n + '',
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (3 + i),
   y: boardY + PLAYER_HOME_SIZE
 }))
 
-const squares25to27 = [25, 26, 27].map((n, i) => ({
-  id: n + '',
+const squares25to27 = [24, 25, 26].map((n, i) => ({
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE * 2 + SMALL_BOX_SIZE * 2,
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * i
 }))
 
-const squares28to32 = [28, 29, 30, 31, 32].map((n, i) => ({
-  id: n + '',
+const squares28to32 = [27, 28, 29, 30, 31].map((n, i) => ({
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (7 - i),
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 2,
   fill: i === 0 ? colors.H3 : null
 }))
 
-const squares33to37 = [33, 34, 35, 36, 37].map((n, i) => ({
-  id: n + '',
+const squares33to37 = [32, 33, 34, 35, 36].map((n, i) => ({
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 2,
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (3 + i)
 }))
 
-const squares38to40 = [38, 39, 40].map((n, i) => ({
-  id: n + '',
+const squares38to40 = [37, 38, 39].map((n, i) => ({
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (2 - i),
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 8
 }))
 
-const squares41to45 = [41, 42, 43, 44, 45].map((n, i) => ({
-  id: n + '',
+const squares41to45 = [40, 41, 42, 43, 44].map((n, i) => ({
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE,
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (7 - i),
   fill: i === 0 ? colors.H4 : null
 }))
 
-const squares46to45 = [46, 47, 48, 49, 50].map((n, i) => ({
-  id: n + '',
+const squares46to45 = [45, 46, 47, 48, 49].map((n, i) => ({
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE - SMALL_BOX_SIZE * (1 + i),
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 2
 }))
 
-const squares51to53 = [51, 52, 53].map((n, i) => ({
-  id: n + '',
+const squares51to53 = [50, 51, 52].map((n, i) => ({
+  squareNumber: n,
+  group: 'COMMUNITY',
   x: boardX,
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (2 - i)
 }))

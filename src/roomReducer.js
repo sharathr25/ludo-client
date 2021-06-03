@@ -7,6 +7,8 @@ export const START_GAME_ERROR = 'START_GAME_ERROR'
 export const ROLL_DICE = 'ROLL_DICE'
 export const ROLL_DICE_NOTIFY = 'ROLL_DICE_NOTIFY'
 export const ROLL_DICE_ERROR = 'ROLL_DICE_ERROR'
+export const MOVE_PAWN = 'MOVE_PAWN'
+export const MOVE_PAWN_NOTIFY = 'MOVE_PAWN_NOTIFY'
 
 const roomReducer = (state, action) => {
   switch (action.type) {
