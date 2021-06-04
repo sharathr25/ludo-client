@@ -10,7 +10,7 @@ const Pawns = ({
 }) => {
   return (
     <Layer>
-      {pawns.map(p => {
+      {pawns.map((p, i) => {
         return (
           <Pawn
             pawn={p}
@@ -18,6 +18,7 @@ const Pawns = ({
             active={
               seat === currentPlayerSeat && pawnsThatCanMove.includes(p.no)
             }
+            key={i}
           />
         )
       })}

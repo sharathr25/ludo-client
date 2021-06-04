@@ -1,4 +1,6 @@
-export const getPlayerHomeInnerSquare = (home, margin) => {
+import { squares } from '../Components/Board'
+
+export function getPlayerHomeInnerSquare (home, margin) {
   return {
     id: `${home.id}IS`,
     x: home.x + margin / 2,
@@ -7,7 +9,7 @@ export const getPlayerHomeInnerSquare = (home, margin) => {
   }
 }
 
-export const getPlayerHomeSquares = (home, playerHomeSize, smallBoxSize) => {
+export function getPlayerHomeSquares (home, playerHomeSize, smallBoxSize) {
   return [
     {
       squareNumber: 1,
@@ -38,4 +40,20 @@ export const getPlayerHomeSquares = (home, playerHomeSize, smallBoxSize) => {
       y: home.y + playerHomeSize / 2 + smallBoxSize / 2
     }
   ]
+}
+
+export function getPath (
+  currentPosition,
+  prevPosition = currentPosition,
+  seat
+) {
+  return [
+    ...range(prevPosition.squareNumber, currentPosition.squareNumber)
+  ].map(n => squares.find(s => s.squareNumber === n))
+}
+
+export function * range (start, end) {
+  for (let i = start; i <= end; i++) {
+    yield i
+  }
 }

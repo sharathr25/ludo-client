@@ -8,7 +8,7 @@ import {
   SMALL_BOX_SIZE,
   BOARD_CONTAINER_SIZE
 } from '../constants'
-import { getPlayerHomeSquares } from '../utils'
+import { getPlayerHomeSquares } from '../utils/utils'
 
 const boardX = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2
 const boardY = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2
