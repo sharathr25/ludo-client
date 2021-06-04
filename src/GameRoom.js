@@ -67,7 +67,6 @@ const GameRoom = () => {
     socket.send(ROLL_DICE, { playerId: myId })
   }
 
-  console.log(state, '-----')
   const {
     players = [],
     hostId,

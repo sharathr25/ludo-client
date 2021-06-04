@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layer, Rect, Line } from 'react-konva'
+import { Layer, Rect, Line, Text } from 'react-konva'
 import {
   BOARD_SIZE,
   PLAYER_HOME_SIZE,
@@ -203,9 +203,10 @@ export const squares = [
   ...squares51to53
 ]
 
-const winTriangles = [
+export const winTriangles = [
   {
-    id: 'w1',
+    seat: 1,
+    group: 'WIN_TRIANGLE',
     points: [
       boardX + PLAYER_HOME_SIZE,
       boardY + PLAYER_HOME_SIZE,
@@ -217,7 +218,8 @@ const winTriangles = [
     fill: colors.H1
   },
   {
-    id: 'w2',
+    seat: 2,
+    group: 'WIN_TRIANGLE',
     points: [
       boardX + PLAYER_HOME_SIZE,
       boardY + PLAYER_HOME_SIZE,
@@ -229,7 +231,8 @@ const winTriangles = [
     fill: colors.H2
   },
   {
-    id: 'w3',
+    seat: 3,
+    group: 'WIN_TRIANGLE',
     points: [
       boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
       boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
@@ -241,7 +244,8 @@ const winTriangles = [
     fill: colors.H3
   },
   {
-    id: 'w4',
+    seat: 4,
+    group: 'WIN_TRIANGLE',
     points: [
       boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
       boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
@@ -273,26 +277,28 @@ const Board = () => {
             width={PLAYER_HOME_SIZE}
             height={PLAYER_HOME_SIZE}
             fill={b.fill}
-            key={b.id}
+            key={b.seat}
           />
         ))}
         {squares.map(s => (
-          <Rect
-            x={s.x}
-            y={s.y}
-            width={s.width || SMALL_BOX_SIZE}
-            height={s.height || SMALL_BOX_SIZE}
-            stroke={s.stroke || COLORS.BLACK}
-            fill={s.fill || 'transparent'}
-            key={s.id}
-          />
+          <React.Fragment key={`${s.squareNumber} ${s.group} ${s.seat}`}>
+            <Rect
+              x={s.x}
+              y={s.y}
+              width={s.width || SMALL_BOX_SIZE}
+              height={s.height || SMALL_BOX_SIZE}
+              stroke={s.stroke || COLORS.BLACK}
+              fill={s.fill || 'transparent'}
+            />
+            <Text text={s.squareNumber} x={s.x} y={s.y} />
+          </React.Fragment>
         ))}
         {winTriangles.map(wt => (
           <Line
             closed
             points={wt.points}
             fill={wt.fill}
-            key={wt.id}
+            key={wt.seat}
             stroke={COLORS.BLACK}
           />
         ))}

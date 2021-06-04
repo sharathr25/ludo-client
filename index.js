@@ -1,6 +1,10 @@
+import './wdyr'
+import 'react-hot-loader'
+import { hot } from 'react-hot-loader'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './src/App'
-import 'regenerator-runtime/runtime'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const HotApp = hot(module)(App)
+
+ReactDOM.render(<HotApp />, document.getElementById('root'))
