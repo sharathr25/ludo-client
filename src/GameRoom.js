@@ -101,6 +101,7 @@ const GameRoom = () => {
           <Board roomId={state.roomId} />
           {players.map(p => (
             <Pawns
+              myPlayer={myPlayer}
               scoreId={scoreId}
               score={score}
               pawns={p.pawns}

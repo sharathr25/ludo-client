@@ -18,7 +18,7 @@ const memoise = (prevProps, nextProps) =>
   prevProps.pawn.squareNumber === nextProps.pawn.squareNumber &&
   prevProps.active === nextProps.active
 
-const Pawn = ({ pawn, seat, score, active }) => {
+const Pawn = ({ pawn, seat, score, active, myPlayer }) => {
   const socket = useContext(SocketContext)
   const [coordinates, setCoordinates] = useState([{ x: 0, y: 0 }])
 
@@ -63,7 +63,8 @@ const Pawn = ({ pawn, seat, score, active }) => {
   })
 
   const movePawn = () => {
-    if (active) {
+    console.log(seat, myPlayer)
+    if (active && myPlayer?.seat === seat) {
       socket.send(MOVE_PAWN, { pawnNo: pawn.no, playerId: myId })
     }
   }

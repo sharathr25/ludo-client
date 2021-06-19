@@ -97,6 +97,23 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     ]
   }
   if (
+    prevPosition.group === 'COMMUNITY' &&
+    currentPosition.group === 'WIN_TRIANGLE'
+  ) {
+    const winTriangle = winTriangles.find(wt => wt.seat === seat)
+    const { points } = winTriangle
+    const centroid = getCentroid(points)
+    return [
+      ...[...range(1, 5)].map(n =>
+        squares.find(
+          s =>
+            s.squareNumber === n && s.group === 'HOME_COLUMN' && s.seat === seat
+        )
+      ),
+      { ...winTriangle, ...centroid }
+    ]
+  }
+  if (
     prevPosition.group === 'HOME_COLUMN' &&
     currentPosition.group === 'HOME_COLUMN'
   ) {

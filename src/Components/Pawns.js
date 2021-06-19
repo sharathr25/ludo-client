@@ -7,13 +7,15 @@ const Pawns = ({
   seat,
   pawnsThatCanMove = [],
   currentPlayerSeat,
-  score
+  score,
+  myPlayer
 }) => {
   return (
     <Layer>
       {pawns.map((p, i) => {
         return (
           <Pawn
+            myPlayer={myPlayer}
             pawn={p}
             seat={seat}
             active={
