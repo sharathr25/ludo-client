@@ -73,13 +73,17 @@ const GameRoom = () => {
     gameStatus,
     actionToTake,
     currentPlayerSeat,
-    pawnsThatCanMove
+    pawnsThatCanMove,
+    score,
+    scoreId
   } = state
 
   const playerOne = players.find(p => p.seat === 1)
   const playerTwo = players.find(p => p.seat === 2)
   const playerThree = players.find(p => p.seat === 3)
   const playerFour = players.find(p => p.seat === 4)
+
+  const myPlayer = players.find(p => p.id === myId)
 
   return (
     <GameContainer>
@@ -97,6 +101,8 @@ const GameRoom = () => {
           <Board roomId={state.roomId} />
           {players.map(p => (
             <Pawns
+              scoreId={scoreId}
+              score={score}
               pawns={p.pawns}
               seat={p.seat}
               key={p.id}
@@ -118,11 +124,12 @@ const GameRoom = () => {
         gameStatus == 'CREATED' && (
           <button onClick={startGame}>Start Game</button>
         )}
-      {players.find(p => p.id === myId)?.seat === currentPlayerSeat &&
+      {myPlayer?.seat === currentPlayerSeat &&
         gameStatus == 'ON_GOING' &&
         actionToTake === 'ROLL_DICE' && (
           <button onClick={rollDice}>Roll Dice</button>
         )}
+      {myPlayer?.rank !== 0 && <span>{myPlayer?.rank}</span>}
     </GameContainer>
   )
 }

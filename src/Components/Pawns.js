@@ -6,7 +6,8 @@ const Pawns = ({
   pawns = [],
   seat,
   pawnsThatCanMove = [],
-  currentPlayerSeat
+  currentPlayerSeat,
+  score
 }) => {
   return (
     <Layer>
@@ -19,6 +20,7 @@ const Pawns = ({
               seat === currentPlayerSeat && pawnsThatCanMove.includes(p.no)
             }
             key={i}
+            score={score}
           />
         )
       })}
