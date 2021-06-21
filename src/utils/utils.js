@@ -83,7 +83,7 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     currentPosition.group === 'HOME_COLUMN'
   ) {
     return [
-      ...[...range(prevPosition.squareNumber + 1, END_SQUARES[seat])].map(n =>
+      ...[...range(prevPosition.squareNumber, END_SQUARES[seat])].map(n =>
         squares.find(s => s.squareNumber === n)
       ),
       ...[...range(1, currentPosition.squareNumber)].map(n =>
@@ -118,7 +118,7 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     currentPosition.group === 'HOME_COLUMN'
   ) {
     return [
-      ...range(prevPosition.squareNumber + 1, currentPosition.squareNumber)
+      ...range(prevPosition.squareNumber, currentPosition.squareNumber)
     ].map(n =>
       squares.find(
         s =>
@@ -136,7 +136,7 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     const { points } = winTriangle
     const centroid = getCentroid(points)
     return [
-      ...[...range(prevPosition.squareNumber + 1, 5)].map(n =>
+      ...[...range(prevPosition.squareNumber, 5)].map(n =>
         squares.find(
           s =>
             s.squareNumber === n &&
@@ -155,7 +155,7 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     prevPosition.squareNumber > currentPosition.squareNumber
   ) {
     return [
-      ...[...range(prevPosition.squareNumber + 1, BOARD_END_SQUARE)].map(n =>
+      ...[...range(prevPosition.squareNumber, BOARD_END_SQUARE)].map(n =>
         squares.find(
           s => s.squareNumber === n && currentPosition.group === s.group
         )
@@ -169,7 +169,7 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
   }
 
   return [
-    ...range(prevPosition.squareNumber + 1, currentPosition.squareNumber)
+    ...range(prevPosition.squareNumber, currentPosition.squareNumber)
   ].map(n =>
     squares.find(s => s.squareNumber === n && currentPosition.group === s.group)
   )

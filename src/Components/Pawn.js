@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { animated, useSpring } from '@react-spring/konva'
 import { COLORS, SEAT_COLORS } from '../constants'
-import { MOVE_PAWN } from '../roomReducer'
+import { GAME_EVENTS } from '../constants'
 import SocketContext from '../SocketContext'
 import { getPath } from '../utils/utils'
+import { useSelector } from 'react-redux'
 
+const { MOVE_PAWN } = GAME_EVENTS
 const DISTANCE_TO_CENTER = 25
 const PAWN_RADIUS = 10
 
@@ -16,13 +18,25 @@ const addDistance = p => ({
 
 const memoise = (prevProps, nextProps) =>
   prevProps.pawn.squareNumber === nextProps.pawn.squareNumber &&
-  prevProps.active === nextProps.active
+  prevProps.pawn.canMove === nextProps.pawn.canMove
 
-const Pawn = ({ pawn, seat, score, active, myPlayer }) => {
-  const socket = useContext(SocketContext)
-  const [coordinates, setCoordinates] = useState([{ x: 0, y: 0 }])
-
+const Pawn = ({ pawn, seat }) => {
   const myId = sessionStorage.getItem('MY_ID')
+  const socket = useContext(SocketContext)
+  const [coordinates, setCoordinates] = useState([
+    { x: 0, y: 0, squareNumber: 0 }
+  ])
+  const game = useSelector(
+    state => {
+      const { game } = state
+      const { players } = game
+      const myPlayer = players.find(p => p.id === myId)
+      const mySeat = myPlayer?.seat
+      return { mySeat }
+    },
+    (left, right) => left.mySeat === right.mySeat
+  )
+  const { mySeat } = game
 
   useEffect(() => {
     if (coordinates.length) {
@@ -43,7 +57,8 @@ const Pawn = ({ pawn, seat, score, active, myPlayer }) => {
       y: coordinates[0].y
     },
     to:
-      coordinates.length === score && !active
+      coordinates[coordinates.length - 1].squareNumber === pawn.squareNumber &&
+      !pawn.canMove
         ? coordinates.map(p => ({
             x: p.x,
             y: p.y
@@ -55,16 +70,15 @@ const Pawn = ({ pawn, seat, score, active, myPlayer }) => {
   })
 
   const propsToGlowPawn = useSpring({
-    loop: active,
+    loop: pawn.canMove,
     from: { stroke: COLORS.BLACK },
-    to: active
+    to: pawn.canMove
       ? [{ stroke: '#f8f8f8' }, { stroke: COLORS.BLACK }]
       : [{ stroke: COLORS.BLACK }]
   })
 
   const movePawn = () => {
-    console.log(seat, myPlayer)
-    if (active && myPlayer?.seat === seat) {
+    if (pawn.canMove && mySeat === seat) {
       socket.send(MOVE_PAWN, { pawnNo: pawn.no, playerId: myId })
     }
   }
