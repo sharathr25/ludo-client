@@ -215,7 +215,8 @@ export const winTriangles = [
       boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
       boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
     ],
-    fill: colors.H1
+    fill: colors.H1,
+    squareNumber: 1
   },
   {
     seat: 2,
@@ -228,7 +229,8 @@ export const winTriangles = [
       boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
       boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
     ],
-    fill: colors.H2
+    fill: colors.H2,
+    squareNumber: 1
   },
   {
     seat: 3,
@@ -241,7 +243,8 @@ export const winTriangles = [
       boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
       boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
     ],
-    fill: colors.H3
+    fill: colors.H3,
+    squareNumber: 1
   },
   {
     seat: 4,
@@ -254,7 +257,8 @@ export const winTriangles = [
       boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
       boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
     ],
-    fill: colors.H4
+    fill: colors.H4,
+    squareNumber: 1
   }
 ]
 
