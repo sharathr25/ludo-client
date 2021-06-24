@@ -1,4 +1,4 @@
-import { staticGameObjects } from '../constants'
+import staticGameObjects from '../constants/gameObjects'
 
 export function getPlayerHomeInnerSquare (home, margin) {
   return {

@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { animated, useSpring } from '@react-spring/konva'
-import { COLORS, SEAT_COLORS } from '../constants'
-import { GAME_EVENTS } from '../constants'
+import { COLORS, SEAT_COLORS } from '../constants/colors'
+import { DISTANCE_TO_CENTER, PAWN_RADIUS } from '../constants/sizes'
+import { GAME_EVENTS } from '../constants/gameEvents'
 import SocketContext from '../SocketContext'
 import { getPath } from '../utils/utils'
 import { useSelector } from 'react-redux'
 
 const { MOVE_PAWN } = GAME_EVENTS
-const DISTANCE_TO_CENTER = 25
-const PAWN_RADIUS = 10
 
 const addDistance = p => ({
   ...p,

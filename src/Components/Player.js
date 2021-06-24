@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { SEAT_COLORS } from '../constants'
+import { SEAT_COLORS } from '../constants/colors'
 
 const Player = styled.div`
   width: 100px;

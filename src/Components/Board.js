@@ -2,24 +2,58 @@ import React from 'react'
 import { Layer, Rect, Line, Text, Circle, Star } from 'react-konva'
 import {
   BOARD_SIZE,
-  PLAYER_HOME_SIZE,
-  COLORS,
+  PLAYER_YARD_SIZE,
   SMALL_BOX_SIZE,
-  staticGameObjects,
   BOARD_CONTAINER_SIZE,
-  playerHomes
-} from '../constants'
+  DISTANCE_TO_CENTER
+} from '../constants/sizes'
+import staticGameObjects from '../constants/gameObjects'
+import { COLORS } from '../constants/colors'
 
 const boardX = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2
 const boardY = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2
 
+const square = s => (
+  <React.Fragment key={`${s.positionNumber} ${s.group} ${s.seat}`}>
+    <Rect
+      x={s.x}
+      y={s.y}
+      width={s.width || SMALL_BOX_SIZE}
+      height={s.height || SMALL_BOX_SIZE}
+      stroke={s.stroke || COLORS.BLACK}
+      fill={s.fill || 'transparent'}
+    />
+    {/* <Text text={s.positionNumber} x={s.x} y={s.y} /> */}
+  </React.Fragment>
+)
+
 const GROUP_TO_COMPONENT = {
+  PLAYER_YARD: playerHome => (
+    <React.Fragment key={`PLAYER_YARD_${playerHome.seat}`}>
+      <Rect
+        x={playerHome.x}
+        y={playerHome.y}
+        width={PLAYER_YARD_SIZE}
+        height={PLAYER_YARD_SIZE}
+        fill={playerHome.fill}
+        stroke={COLORS.BLACK}
+      />
+      <Rect
+        x={playerHome.x + SMALL_BOX_SIZE}
+        y={playerHome.y + SMALL_BOX_SIZE}
+        width={PLAYER_YARD_SIZE - SMALL_BOX_SIZE * 2}
+        height={PLAYER_YARD_SIZE - SMALL_BOX_SIZE * 2}
+        fill={COLORS.WHITE}
+        stroke={COLORS.BLACK}
+      />
+    </React.Fragment>
+  ),
   HOME: home => (
     <React.Fragment key={`${home.positionNumber} ${home.group} ${home.seat}`}>
       <Circle
-        x={home.x + 25}
-        y={home.y + 25}
-        radius={75 / 2}
+        x={home.x + DISTANCE_TO_CENTER}
+        y={home.y + DISTANCE_TO_CENTER}
+        radius={(SMALL_BOX_SIZE + DISTANCE_TO_CENTER) / 2}
         stroke={COLORS.BLACK}
         fill={home.fill}
       />
@@ -35,17 +69,20 @@ const GROUP_TO_COMPONENT = {
       stroke={COLORS.BLACK}
     />
   ),
-  SAFE_SQUARE_STAR: star => (
+  SAFE_SQUARE_STAR: (star, i) => (
     <Star
-      x={star.x + 25}
-      y={star.y + 25}
+      x={star.x + DISTANCE_TO_CENTER}
+      y={star.y + DISTANCE_TO_CENTER}
       numPoints={5}
-      innerRadius={7.5}
-      outerRadius={15}
+      innerRadius={(DISTANCE_TO_CENTER - 10) / 2}
+      outerRadius={DISTANCE_TO_CENTER - 10}
+      key={`START_${i + 1}`}
       fill={COLORS.WHITE}
       stroke={COLORS.BLACK}
     />
-  )
+  ),
+  COMMUNITY: communitySquare => square(communitySquare),
+  HOME_COLUMN: homeColumnSquare => square(homeColumnSquare)
 }
 
 const Board = () => {
@@ -60,45 +97,7 @@ const Board = () => {
           fill={COLORS.LIGHT_GRAY}
           stroke={COLORS.BLACK}
         />
-        {playerHomes.map(b => (
-          <>
-            <Rect
-              x={b.x}
-              y={b.y}
-              width={PLAYER_HOME_SIZE}
-              height={PLAYER_HOME_SIZE}
-              fill={b.fill}
-              key={b.seat}
-              stroke={COLORS.BLACK}
-            />
-            <Rect
-              x={b.x + 50}
-              y={b.y + 50}
-              width={PLAYER_HOME_SIZE - 100}
-              height={PLAYER_HOME_SIZE - 100}
-              fill={COLORS.WHITE}
-              key={b.seat}
-              stroke={COLORS.BLACK}
-            />
-          </>
-        ))}
-        {staticGameObjects.map(s => {
-          return GROUP_TO_COMPONENT[s.group] ? (
-            GROUP_TO_COMPONENT[s.group](s)
-          ) : (
-            <React.Fragment key={`${s.positionNumber} ${s.group} ${s.seat}`}>
-              <Rect
-                x={s.x}
-                y={s.y}
-                width={s.width || SMALL_BOX_SIZE}
-                height={s.height || SMALL_BOX_SIZE}
-                stroke={s.stroke || COLORS.BLACK}
-                fill={s.fill || 'transparent'}
-              />
-              {/* <Text text={s.positionNumber} x={s.x} y={s.y} /> */}
-            </React.Fragment>
-          )
-        })}
+        {staticGameObjects.map((s, i) => GROUP_TO_COMPONENT[s.group](s, i))}
       </Layer>
     </>
   )

@@ -3,13 +3,12 @@ import { Socket as PhoenixSocket } from 'phoenix'
 const WEBSOCKET_URL = 'ws://localhost:5000/socket'
 
 class Socket {
-  constructor () {
-    this.socket = new PhoenixSocket(WEBSOCKET_URL, {})
-  }
+  constructor () {}
 
   connect (data) {
+    this.socket = new PhoenixSocket(WEBSOCKET_URL, { params: data })
     if (this.isSocketConnected()) return this.socket
-    this.socket.connect(data)
+    this.socket.connect()
   }
 
   joinChannel (channelName) {
