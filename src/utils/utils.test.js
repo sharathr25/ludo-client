@@ -1,4 +1,4 @@
-import { getPath } from './utils.js'
+import { getPath } from './utils'
 
 describe('getPath', () => {
   test('initially when we have only current position', () => {
@@ -9,7 +9,7 @@ describe('getPath', () => {
     })
     expect(path).toHaveLength(1)
     expect(path[0]).toEqual({
-      fill: 'white',
+      fill: '#FF0202',
       group: 'HOME',
       seat: 1,
       positionNumber: 1,
@@ -26,50 +26,11 @@ describe('getPath', () => {
     })
     expect(path).toHaveLength(6)
     expect(path).toEqual([
-      {
-        fill: 'white',
-        group: 'HOME',
-        seat: 1,
-        positionNumber: 1,
-        stroke: 'white',
-        x: 75,
-        y: 75
-      },
-      {
-        fill: 'white',
-        group: 'HOME',
-        seat: 1,
-        positionNumber: 2,
-        stroke: 'white',
-        x: 175,
-        y: 175
-      },
-      {
-        fill: 'white',
-        group: 'HOME',
-        seat: 1,
-        positionNumber: 3,
-        stroke: 'white',
-        x: 175,
-        y: 75
-      },
-      {
-        fill: 'white',
-        group: 'HOME',
-        seat: 1,
-        positionNumber: 4,
-        stroke: 'white',
-        x: 75,
-        y: 175
-      },
-      {
-        fill: '#ea5455',
-        group: 'HOME_COLUMN',
-        seat: 1,
-        positionNumber: 5,
-        x: 250,
-        y: 350
-      },
+      { fill: '#FF0202', group: 'COMMUNITY', positionNumber: 1, x: 50, y: 300 },
+      { fill: null, group: 'COMMUNITY', positionNumber: 2, x: 100, y: 300 },
+      { fill: null, group: 'COMMUNITY', positionNumber: 3, x: 150, y: 300 },
+      { fill: null, group: 'COMMUNITY', positionNumber: 4, x: 200, y: 300 },
+      { fill: null, group: 'COMMUNITY', positionNumber: 5, x: 250, y: 300 },
       { group: 'COMMUNITY', positionNumber: 6, x: 300, y: 250 }
     ])
   })
@@ -101,18 +62,18 @@ describe('getPath', () => {
       { group: 'COMMUNITY', positionNumber: 50, x: 0, y: 400 },
       { group: 'COMMUNITY', positionNumber: 51, x: 0, y: 350 },
       {
-        fill: '#ea5455',
+        fill: '#FF0202',
         group: 'HOME_COLUMN',
-        seat: 1,
         positionNumber: 1,
+        seat: 1,
         x: 50,
         y: 350
       },
       {
-        fill: '#ea5455',
+        fill: '#FF0202',
         group: 'HOME_COLUMN',
-        seat: 1,
         positionNumber: 2,
+        seat: 1,
         x: 100,
         y: 350
       }
@@ -144,7 +105,7 @@ describe('getPath', () => {
   })
   test('when we need to move from home column to win triangle', () => {
     const path = getPath({
-      currentPosition: { group: 'WIN_TRIANGLE', no: 1 },
+      currentPosition: { group: 'WIN_TRIANGLE', no: 1, positionNumber: 1 },
       prevPosition: { positionNumber: 2, group: 'HOME_COLUMN', no: 1 },
       seat: 2
     })
@@ -157,7 +118,8 @@ describe('getPath', () => {
       { group: 'HOME_COLUMN', positionNumber: 4 },
       { group: 'HOME_COLUMN', positionNumber: 5 },
       {
-        group: 'WIN_TRIANGLE'
+        group: 'WIN_TRIANGLE',
+        positionNumber: 1
       }
     ])
   })

@@ -1,5 +1,4 @@
-import { staticGameObjects } from '../Components/Board'
-import { SEAT_COLORS } from '../constants'
+import { staticGameObjects } from '../constants'
 
 export function getPlayerHomeInnerSquare (home, margin) {
   return {
@@ -8,43 +7,6 @@ export function getPlayerHomeInnerSquare (home, margin) {
     y: home.y + margin / 2,
     margin
   }
-}
-
-export function getPlayerHomeSquares (home, playerHomeSize, smallBoxSize) {
-  return [
-    {
-      positionNumber: 1,
-      group: 'HOME',
-      seat: home.seat,
-      x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
-      y: home.y + playerHomeSize / 6 + smallBoxSize / 2,
-      fill: SEAT_COLORS[home.seat]
-    },
-    {
-      positionNumber: 2,
-      group: 'HOME',
-      seat: home.seat,
-      x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
-      y: home.y + playerHomeSize / 2 + smallBoxSize / 2,
-      fill: SEAT_COLORS[home.seat]
-    },
-    {
-      positionNumber: 3,
-      group: 'HOME',
-      seat: home.seat,
-      x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
-      y: home.y + playerHomeSize / 6 + smallBoxSize / 2,
-      fill: SEAT_COLORS[home.seat]
-    },
-    {
-      positionNumber: 4,
-      group: 'HOME',
-      seat: home.seat,
-      x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
-      y: home.y + playerHomeSize / 2 + smallBoxSize / 2,
-      fill: SEAT_COLORS[home.seat]
-    }
-  ]
 }
 
 const getCentroid = points => {
@@ -139,7 +101,9 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     prevPosition.group === 'HOME_COLUMN' &&
     currentPosition.group === 'WIN_TRIANGLE'
   ) {
-    const winTriangle = staticGameObjects.find(wt => wt.seat === seat)
+    const winTriangle = staticGameObjects.find(
+      wt => wt.seat === seat && wt.group === currentPosition.group
+    )
     const { points } = winTriangle
     const centroid = getCentroid(points)
     return [
