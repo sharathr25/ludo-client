@@ -1,4 +1,5 @@
-import { squares, winTriangles } from '../Components/Board'
+import { staticGameObjects } from '../Components/Board'
+import { SEAT_COLORS } from '../constants'
 
 export function getPlayerHomeInnerSquare (home, margin) {
   return {
@@ -12,32 +13,36 @@ export function getPlayerHomeInnerSquare (home, margin) {
 export function getPlayerHomeSquares (home, playerHomeSize, smallBoxSize) {
   return [
     {
-      squareNumber: 1,
+      positionNumber: 1,
       group: 'HOME',
       seat: home.seat,
       x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
-      y: home.y + playerHomeSize / 6 + smallBoxSize / 2
+      y: home.y + playerHomeSize / 6 + smallBoxSize / 2,
+      fill: SEAT_COLORS[home.seat]
     },
     {
-      squareNumber: 2,
+      positionNumber: 2,
       group: 'HOME',
       seat: home.seat,
       x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
-      y: home.y + playerHomeSize / 2 + smallBoxSize / 2
+      y: home.y + playerHomeSize / 2 + smallBoxSize / 2,
+      fill: SEAT_COLORS[home.seat]
     },
     {
-      squareNumber: 3,
+      positionNumber: 3,
       group: 'HOME',
       seat: home.seat,
       x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
-      y: home.y + playerHomeSize / 6 + smallBoxSize / 2
+      y: home.y + playerHomeSize / 6 + smallBoxSize / 2,
+      fill: SEAT_COLORS[home.seat]
     },
     {
-      squareNumber: 4,
+      positionNumber: 4,
       group: 'HOME',
       seat: home.seat,
       x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
-      y: home.y + playerHomeSize / 2 + smallBoxSize / 2
+      y: home.y + playerHomeSize / 2 + smallBoxSize / 2,
+      fill: SEAT_COLORS[home.seat]
     }
   ]
 }
@@ -56,25 +61,25 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
   if (!prevPosition) {
     if (currentPosition.group !== 'WIN_TRIANGLE') {
       return [
-        squares.find(
+        staticGameObjects.find(
           s =>
             (s.seat ? s.seat === seat : true) &&
-            s.squareNumber === currentPosition.squareNumber &&
+            s.positionNumber === currentPosition.positionNumber &&
             currentPosition.group === s.group
         )
       ]
     } else {
-      const winTriangle = winTriangles.find(wt => wt.seat === seat)
+      const winTriangle = staticGameObjects.find(wt => wt.seat === seat)
       const { points } = winTriangle
       const centroid = getCentroid(points)
       return [{ ...winTriangle, ...centroid }]
     }
   }
   if (prevPosition.group === 'HOME' && currentPosition.group === 'COMMUNITY') {
-    return [...range(START_SQUARES[seat], currentPosition.squareNumber)].map(
+    return [...range(START_SQUARES[seat], currentPosition.positionNumber)].map(
       n =>
-        squares.find(
-          s => s.squareNumber === n && currentPosition.group === s.group
+        staticGameObjects.find(
+          s => s.positionNumber === n && currentPosition.group === s.group
         )
     )
   }
@@ -83,13 +88,13 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     currentPosition.group === 'HOME_COLUMN'
   ) {
     return [
-      ...[...range(prevPosition.squareNumber, END_SQUARES[seat])].map(n =>
-        squares.find(s => s.squareNumber === n)
+      ...[...range(prevPosition.positionNumber, END_SQUARES[seat])].map(n =>
+        staticGameObjects.find(s => s.positionNumber === n)
       ),
-      ...[...range(1, currentPosition.squareNumber)].map(n =>
-        squares.find(
+      ...[...range(1, currentPosition.positionNumber)].map(n =>
+        staticGameObjects.find(
           s =>
-            s.squareNumber === n &&
+            s.positionNumber === n &&
             s.group === currentPosition.group &&
             s.seat === seat
         )
@@ -100,14 +105,16 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     prevPosition.group === 'COMMUNITY' &&
     currentPosition.group === 'WIN_TRIANGLE'
   ) {
-    const winTriangle = winTriangles.find(wt => wt.seat === seat)
+    const winTriangle = staticGameObjects.find(wt => wt.seat === seat)
     const { points } = winTriangle
     const centroid = getCentroid(points)
     return [
       ...[...range(1, 5)].map(n =>
-        squares.find(
+        staticGameObjects.find(
           s =>
-            s.squareNumber === n && s.group === 'HOME_COLUMN' && s.seat === seat
+            s.positionNumber === n &&
+            s.group === 'HOME_COLUMN' &&
+            s.seat === seat
         )
       ),
       { ...winTriangle, ...centroid }
@@ -118,11 +125,11 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     currentPosition.group === 'HOME_COLUMN'
   ) {
     return [
-      ...range(prevPosition.squareNumber, currentPosition.squareNumber)
+      ...range(prevPosition.positionNumber, currentPosition.positionNumber)
     ].map(n =>
-      squares.find(
+      staticGameObjects.find(
         s =>
-          s.squareNumber === n &&
+          s.positionNumber === n &&
           currentPosition.group === s.group &&
           s.seat === seat
       )
@@ -132,14 +139,14 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     prevPosition.group === 'HOME_COLUMN' &&
     currentPosition.group === 'WIN_TRIANGLE'
   ) {
-    const winTriangle = winTriangles.find(wt => wt.seat === seat)
+    const winTriangle = staticGameObjects.find(wt => wt.seat === seat)
     const { points } = winTriangle
     const centroid = getCentroid(points)
     return [
-      ...[...range(prevPosition.squareNumber, 5)].map(n =>
-        squares.find(
+      ...[...range(prevPosition.positionNumber, 5)].map(n =>
+        staticGameObjects.find(
           s =>
-            s.squareNumber === n &&
+            s.positionNumber === n &&
             s.group === prevPosition.group &&
             s.seat === seat
         )
@@ -149,29 +156,31 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
   }
 
   if (
-    prevPosition.squareNumber <= BOARD_END_SQUARE &&
-    currentPosition.squareNumber >= 1 &&
-    currentPosition.squareNumber !== BOARD_END_SQUARE &&
-    prevPosition.squareNumber > currentPosition.squareNumber
+    prevPosition.positionNumber <= BOARD_END_SQUARE &&
+    currentPosition.positionNumber >= 1 &&
+    currentPosition.positionNumber !== BOARD_END_SQUARE &&
+    prevPosition.positionNumber > currentPosition.positionNumber
   ) {
     return [
-      ...[...range(prevPosition.squareNumber, BOARD_END_SQUARE)].map(n =>
-        squares.find(
-          s => s.squareNumber === n && currentPosition.group === s.group
+      ...[...range(prevPosition.positionNumber, BOARD_END_SQUARE)].map(n =>
+        staticGameObjects.find(
+          s => s.positionNumber === n && currentPosition.group === s.group
         )
       ),
-      ...[...range(1, currentPosition.squareNumber)].map(n =>
-        squares.find(
-          s => s.squareNumber === n && currentPosition.group === s.group
+      ...[...range(1, currentPosition.positionNumber)].map(n =>
+        staticGameObjects.find(
+          s => s.positionNumber === n && currentPosition.group === s.group
         )
       )
     ]
   }
 
   return [
-    ...range(prevPosition.squareNumber, currentPosition.squareNumber)
+    ...range(prevPosition.positionNumber, currentPosition.positionNumber)
   ].map(n =>
-    squares.find(s => s.squareNumber === n && currentPosition.group === s.group)
+    staticGameObjects.find(
+      s => s.positionNumber === n && currentPosition.group === s.group
+    )
   )
 }
 

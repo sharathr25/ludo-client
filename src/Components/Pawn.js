@@ -17,14 +17,14 @@ const addDistance = p => ({
 })
 
 const memoise = (prevProps, nextProps) =>
-  prevProps.pawn.squareNumber === nextProps.pawn.squareNumber &&
+  prevProps.pawn.positionNumber === nextProps.pawn.positionNumber &&
   prevProps.pawn.canMove === nextProps.pawn.canMove
 
 const Pawn = ({ pawn, seat }) => {
   const myId = sessionStorage.getItem('MY_ID')
   const socket = useContext(SocketContext)
   const [coordinates, setCoordinates] = useState([
-    { x: 0, y: 0, squareNumber: 0 }
+    { x: 0, y: 0, positionNumber: 0 }
   ])
   const game = useSelector(
     state => {
@@ -42,14 +42,14 @@ const Pawn = ({ pawn, seat }) => {
     if (coordinates.length) {
       const path = getPath({
         currentPosition: pawn,
-        prevPosition: coordinates[coordinates.length - 1].squareNumber
+        prevPosition: coordinates[coordinates.length - 1].positionNumber
           ? coordinates[coordinates.length - 1]
           : null,
         seat
       })
       setCoordinates(path.map(addDistance))
     }
-  }, [pawn.squareNumber])
+  }, [pawn.positionNumber])
 
   const propsToMovePawn = useSpring({
     from: {
@@ -57,8 +57,8 @@ const Pawn = ({ pawn, seat }) => {
       y: coordinates[0].y
     },
     to:
-      coordinates[coordinates.length - 1].squareNumber === pawn.squareNumber &&
-      !pawn.canMove
+      coordinates[coordinates.length - 1].positionNumber ===
+        pawn.positionNumber && !pawn.canMove
         ? coordinates.map(p => ({
             x: p.x,
             y: p.y

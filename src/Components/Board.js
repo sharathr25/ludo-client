@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layer, Rect, Line, Text } from 'react-konva'
+import { Layer, Rect, Line, Text, Circle, Star } from 'react-konva'
 import {
   BOARD_SIZE,
   PLAYER_HOME_SIZE,
@@ -52,7 +52,6 @@ const playerHomeSquares = playerHomes.reduce(
     ...acc,
     ...getPlayerHomeSquares(cur, PLAYER_HOME_SIZE, SMALL_BOX_SIZE).map(s => ({
       ...s,
-      fill: COLORS.WHITE,
       stroke: COLORS.WHITE
     }))
   ],
@@ -60,7 +59,7 @@ const playerHomeSquares = playerHomes.reduce(
 )
 
 const playerHome1ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'HOME_COLUMN',
   seat: 1,
   x: boardX + PLAYER_HOME_SIZE - SMALL_BOX_SIZE * (5 - i),
@@ -69,7 +68,7 @@ const playerHome1ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
 }))
 
 const playerHome2ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'HOME_COLUMN',
   seat: 2,
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE,
@@ -78,7 +77,7 @@ const playerHome2ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
 }))
 
 const playerHome3ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'HOME_COLUMN',
   seat: 3,
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (7 - i),
@@ -87,7 +86,7 @@ const playerHome3ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
 }))
 
 const playerHome4ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'HOME_COLUMN',
   seat: 4,
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE,
@@ -96,7 +95,7 @@ const playerHome4ColumnSquares = [1, 2, 3, 4, 5].map((n, i) => ({
 }))
 
 const squares1to5 = [1, 2, 3, 4, 5].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE - SMALL_BOX_SIZE * (5 - i),
   y: boardY + PLAYER_HOME_SIZE,
@@ -104,21 +103,21 @@ const squares1to5 = [1, 2, 3, 4, 5].map((n, i) => ({
 }))
 
 const squares6to10 = [6, 7, 8, 9, 10].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE,
   y: boardY + PLAYER_HOME_SIZE - SMALL_BOX_SIZE * (i + 1)
 }))
 
 const squares11to13 = [11, 12, 13].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * i,
   y: boardY
 }))
 
 const squares14to18 = [14, 15, 16, 17, 18].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 2,
   y: boardY + SMALL_BOX_SIZE * (1 + i),
@@ -126,21 +125,21 @@ const squares14to18 = [14, 15, 16, 17, 18].map((n, i) => ({
 }))
 
 const squares19to24 = [19, 20, 21, 22, 23].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (3 + i),
   y: boardY + PLAYER_HOME_SIZE
 }))
 
 const squares25to27 = [24, 25, 26].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE * 2 + SMALL_BOX_SIZE * 2,
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * i
 }))
 
 const squares28to32 = [27, 28, 29, 30, 31].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (7 - i),
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 2,
@@ -148,21 +147,21 @@ const squares28to32 = [27, 28, 29, 30, 31].map((n, i) => ({
 }))
 
 const squares33to37 = [32, 33, 34, 35, 36].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 2,
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (3 + i)
 }))
 
 const squares38to40 = [37, 38, 39].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (2 - i),
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 8
 }))
 
 const squares41to45 = [40, 41, 42, 43, 44].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE,
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (7 - i),
@@ -170,20 +169,98 @@ const squares41to45 = [40, 41, 42, 43, 44].map((n, i) => ({
 }))
 
 const squares46to45 = [45, 46, 47, 48, 49].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX + PLAYER_HOME_SIZE - SMALL_BOX_SIZE * (1 + i),
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * 2
 }))
 
 const squares51to53 = [50, 51, 52].map((n, i) => ({
-  squareNumber: n,
+  positionNumber: n,
   group: 'COMMUNITY',
   x: boardX,
   y: boardY + PLAYER_HOME_SIZE + SMALL_BOX_SIZE * (2 - i)
 }))
 
-export const squares = [
+export const winTriangles = [
+  {
+    seat: 1,
+    group: 'WIN_TRIANGLE',
+    points: [
+      boardX + PLAYER_HOME_SIZE,
+      boardY + PLAYER_HOME_SIZE,
+      boardX + PLAYER_HOME_SIZE,
+      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
+      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
+      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
+    ],
+    fill: colors.H1,
+    positionNumber: 1
+  },
+  {
+    seat: 2,
+    group: 'WIN_TRIANGLE',
+    points: [
+      boardX + PLAYER_HOME_SIZE,
+      boardY + PLAYER_HOME_SIZE,
+      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
+      boardY + PLAYER_HOME_SIZE,
+      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
+      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
+    ],
+    fill: colors.H2,
+    positionNumber: 1
+  },
+  {
+    seat: 3,
+    group: 'WIN_TRIANGLE',
+    points: [
+      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
+      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
+      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
+      boardY + PLAYER_HOME_SIZE,
+      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
+      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
+    ],
+    fill: colors.H3,
+    positionNumber: 1
+  },
+  {
+    seat: 4,
+    group: 'WIN_TRIANGLE',
+    points: [
+      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
+      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
+      boardX + PLAYER_HOME_SIZE,
+      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
+      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
+      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
+    ],
+    fill: colors.H4,
+    positionNumber: 1
+  }
+]
+
+const safeSquareStars = [
+  {
+    ...squares1to5[0],
+    group: 'SAFE_SQUARE_STAR'
+  },
+  {
+    ...squares14to18[0],
+    group: 'SAFE_SQUARE_STAR'
+  },
+  {
+    ...squares41to45[0],
+    group: 'SAFE_SQUARE_STAR'
+  },
+  {
+    ...squares28to32[0],
+    group: 'SAFE_SQUARE_STAR'
+  }
+]
+
+export const staticGameObjects = [
   ...playerHomeSquares,
   ...playerHome1ColumnSquares,
   ...playerHome2ColumnSquares,
@@ -200,67 +277,45 @@ export const squares = [
   ...squares38to40,
   ...squares41to45,
   ...squares46to45,
-  ...squares51to53
+  ...squares51to53,
+  ...winTriangles,
+  ...safeSquareStars
 ]
 
-export const winTriangles = [
-  {
-    seat: 1,
-    group: 'WIN_TRIANGLE',
-    points: [
-      boardX + PLAYER_HOME_SIZE,
-      boardY + PLAYER_HOME_SIZE,
-      boardX + PLAYER_HOME_SIZE,
-      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
-      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
-      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
-    ],
-    fill: colors.H1,
-    squareNumber: 1
-  },
-  {
-    seat: 2,
-    group: 'WIN_TRIANGLE',
-    points: [
-      boardX + PLAYER_HOME_SIZE,
-      boardY + PLAYER_HOME_SIZE,
-      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
-      boardY + PLAYER_HOME_SIZE,
-      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
-      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
-    ],
-    fill: colors.H2,
-    squareNumber: 1
-  },
-  {
-    seat: 3,
-    group: 'WIN_TRIANGLE',
-    points: [
-      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
-      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
-      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
-      boardY + PLAYER_HOME_SIZE,
-      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
-      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
-    ],
-    fill: colors.H3,
-    squareNumber: 1
-  },
-  {
-    seat: 4,
-    group: 'WIN_TRIANGLE',
-    points: [
-      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
-      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
-      boardX + PLAYER_HOME_SIZE,
-      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME,
-      boardX + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2,
-      boardY + PLAYER_HOME_SIZE + WIDTH_OF_SQUARES_ALONG_HOME / 2
-    ],
-    fill: colors.H4,
-    squareNumber: 1
-  }
-]
+const GROUP_TO_COMPONENT = {
+  HOME: home => (
+    <React.Fragment key={`${home.positionNumber} ${home.group} ${home.seat}`}>
+      <Circle
+        x={home.x + 25}
+        y={home.y + 25}
+        radius={75 / 2}
+        stroke={COLORS.BLACK}
+        fill={home.fill}
+      />
+      {/* <Text text={s.positionNumber} x={home.x} y={home.y} /> */}
+    </React.Fragment>
+  ),
+  WIN_TRIANGLE: winTriangle => (
+    <Line
+      closed
+      points={winTriangle.points}
+      fill={winTriangle.fill}
+      key={winTriangle.seat}
+      stroke={COLORS.BLACK}
+    />
+  ),
+  SAFE_SQUARE_STAR: star => (
+    <Star
+      x={star.x + 25}
+      y={star.y + 25}
+      numPoints={5}
+      innerRadius={7.5}
+      outerRadius={15}
+      fill={COLORS.WHITE}
+      stroke={COLORS.BLACK}
+    />
+  )
+}
 
 const Board = () => {
   return (
@@ -275,37 +330,44 @@ const Board = () => {
           stroke={COLORS.BLACK}
         />
         {playerHomes.map(b => (
-          <Rect
-            x={b.x}
-            y={b.y}
-            width={PLAYER_HOME_SIZE}
-            height={PLAYER_HOME_SIZE}
-            fill={b.fill}
-            key={b.seat}
-          />
-        ))}
-        {squares.map(s => (
-          <React.Fragment key={`${s.squareNumber} ${s.group} ${s.seat}`}>
+          <>
             <Rect
-              x={s.x}
-              y={s.y}
-              width={s.width || SMALL_BOX_SIZE}
-              height={s.height || SMALL_BOX_SIZE}
-              stroke={s.stroke || COLORS.BLACK}
-              fill={s.fill || 'transparent'}
+              x={b.x}
+              y={b.y}
+              width={PLAYER_HOME_SIZE}
+              height={PLAYER_HOME_SIZE}
+              fill={b.fill}
+              key={b.seat}
+              stroke={COLORS.BLACK}
             />
-            <Text text={s.squareNumber} x={s.x} y={s.y} />
-          </React.Fragment>
+            <Rect
+              x={b.x + 50}
+              y={b.y + 50}
+              width={PLAYER_HOME_SIZE - 100}
+              height={PLAYER_HOME_SIZE - 100}
+              fill={COLORS.WHITE}
+              key={b.seat}
+              stroke={COLORS.BLACK}
+            />
+          </>
         ))}
-        {winTriangles.map(wt => (
-          <Line
-            closed
-            points={wt.points}
-            fill={wt.fill}
-            key={wt.seat}
-            stroke={COLORS.BLACK}
-          />
-        ))}
+        {staticGameObjects.map(s => {
+          return GROUP_TO_COMPONENT[s.group] ? (
+            GROUP_TO_COMPONENT[s.group](s)
+          ) : (
+            <React.Fragment key={`${s.positionNumber} ${s.group} ${s.seat}`}>
+              <Rect
+                x={s.x}
+                y={s.y}
+                width={s.width || SMALL_BOX_SIZE}
+                height={s.height || SMALL_BOX_SIZE}
+                stroke={s.stroke || COLORS.BLACK}
+                fill={s.fill || 'transparent'}
+              />
+              {/* <Text text={s.positionNumber} x={s.x} y={s.y} /> */}
+            </React.Fragment>
+          )
+        })}
       </Layer>
     </>
   )
