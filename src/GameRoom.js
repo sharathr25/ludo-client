@@ -1,17 +1,25 @@
 import React, { useContext, useEffect } from 'react'
+import CopyToClipboard from 'react-copy-to-clipboard'
 import { Stage } from 'react-konva'
 import { Provider } from 'react-redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import SocketContext from './SocketContext'
+import Button from './Components/Button'
+import CopyButton from './Components/CopyButton'
 import Board from './Components/Board'
 import GameContainer from './Components/GameContainer'
 import Heading from './Components/Heading'
 import Pawns from './Components/Pawns'
 import Player from './Components/Player'
 import PlayersAndBoard from './Components/PlayersAndBoard'
+import RoomDetailsAndActions from './Components/RoomDetailsAndActions'
 import TwoPlayers from './Components/TwoPlayers'
 import { GAME_EVENTS } from './constants/gameEvents'
 import { BOARD_CONTAINER_SIZE } from './constants/sizes'
+import { ERROR_MSGS } from './constants/texts'
 import { updateGame } from './redux/gameSlice'
 import store from './redux/store'
 
@@ -26,7 +34,6 @@ const {
   START_GAME_ERROR,
   START_GAME_NOTIFY
 } = GAME_EVENTS
-import SocketContext from './SocketContext'
 
 const GameRoom = () => {
   const socket = useContext(SocketContext)
@@ -62,7 +69,7 @@ const GameRoom = () => {
       dispatch(updateGame(res))
     })
     socket.receive(START_GAME_ERROR, res => {
-      alert(res.reason)
+      toast.error(ERROR_MSGS[res.reason])
     })
   }, [])
 
@@ -74,6 +81,10 @@ const GameRoom = () => {
     socket.send(ROLL_DICE, { playerId: myId })
   }
 
+  const handleOnCopy = () => {
+    toast.info('Copied')
+  }
+
   const {
     players = [],
     hostId,
@@ -82,24 +93,40 @@ const GameRoom = () => {
     currentPlayerSeat
   } = game
 
-  const playerOne = players.find(p => p.seat === 1)
-  const playerTwo = players.find(p => p.seat === 2)
-  const playerThree = players.find(p => p.seat === 3)
-  const playerFour = players.find(p => p.seat === 4)
-
   const myPlayer = players.find(p => p.id === myId)
+
+  const findBySeat = seat => p => p.seat === seat
 
   return (
     <GameContainer>
-      <Heading>{roomId}</Heading>
+      <RoomDetailsAndActions>
+        <Heading>
+          {roomId}
+          <CopyToClipboard text={roomId} onCopy={handleOnCopy}>
+            <CopyButton />
+          </CopyToClipboard>
+        </Heading>
+        {players.find(p => p.id === myId)?.id === hostId &&
+          gameStatus == 'CREATED' && (
+            <Button onClick={startGame}>Start Game</Button>
+          )}
+        {myPlayer?.seat === currentPlayerSeat &&
+          gameStatus == 'ON_GOING' &&
+          actionToTake === 'ROLL_DICE' && (
+            <Button onClick={rollDice}>Roll Dice</Button>
+          )}
+        {myPlayer?.rank !== 0 && <span>{myPlayer?.rank}</span>}
+      </RoomDetailsAndActions>
       <PlayersAndBoard>
         <TwoPlayers>
-          <Player seat={1} active={currentPlayerSeat === playerOne?.seat}>
-            {playerOne?.name}
-          </Player>
-          <Player seat={4} active={currentPlayerSeat === playerFour?.seat}>
-            {playerFour?.name}
-          </Player>
+          <Player
+            player={players.find(findBySeat(1))}
+            currentPlayerSeat={currentPlayerSeat}
+          />
+          <Player
+            player={players.find(findBySeat(3))}
+            currentPlayerSeat={currentPlayerSeat}
+          />
         </TwoPlayers>
         <Stage width={BOARD_CONTAINER_SIZE} height={BOARD_CONTAINER_SIZE}>
           <Board roomId={roomId} />
@@ -111,24 +138,27 @@ const GameRoom = () => {
           </Provider>
         </Stage>
         <TwoPlayers>
-          <Player seat={2} active={currentPlayerSeat === playerTwo?.seat}>
-            {playerTwo?.name}
-          </Player>
-          <Player seat={3} active={currentPlayerSeat === playerThree?.seat}>
-            {playerThree?.name}
-          </Player>
+          <Player
+            player={players.find(findBySeat(2))}
+            currentPlayerSeat={currentPlayerSeat}
+          />
+          <Player
+            players={players.find(findBySeat(4))}
+            currentPlayerSeat={currentPlayerSeat}
+          />
         </TwoPlayers>
       </PlayersAndBoard>
-      {players.find(p => p.id === myId)?.id === hostId &&
-        gameStatus == 'CREATED' && (
-          <button onClick={startGame}>Start Game</button>
-        )}
-      {myPlayer?.seat === currentPlayerSeat &&
-        gameStatus == 'ON_GOING' &&
-        actionToTake === 'ROLL_DICE' && (
-          <button onClick={rollDice}>Roll Dice</button>
-        )}
-      {myPlayer?.rank !== 0 && <span>{myPlayer?.rank}</span>}
+      <ToastContainer
+        position='top-left'
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </GameContainer>
   )
 }
