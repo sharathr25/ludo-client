@@ -87,19 +87,17 @@ const GROUP_TO_COMPONENT = {
 
 const Board = () => {
   return (
-    <>
-      <Layer>
-        <Rect
-          x={boardX}
-          y={boardY}
-          width={BOARD_SIZE}
-          height={BOARD_SIZE}
-          fill={COLORS.LIGHT_GRAY}
-          stroke={COLORS.BLACK}
-        />
-        {staticGameObjects.map((s, i) => GROUP_TO_COMPONENT[s.group](s, i))}
-      </Layer>
-    </>
+    <Layer>
+      <Rect
+        x={boardX}
+        y={boardY}
+        width={BOARD_SIZE}
+        height={BOARD_SIZE}
+        fill={COLORS.LIGHT_GRAY}
+        stroke={COLORS.BLACK}
+      />
+      {staticGameObjects.map((s, i) => GROUP_TO_COMPONENT[s.group](s, i))}
+    </Layer>
   )
 }
 

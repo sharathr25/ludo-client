@@ -14,9 +14,6 @@ import GameContainer from './Components/GameContainer'
 import Heading from './Components/Heading'
 import Pawns from './Components/Pawns'
 import Player from './Components/Player'
-import PlayersAndBoard from './Components/PlayersAndBoard'
-import RoomDetailsAndActions from './Components/RoomDetailsAndActions'
-import TwoPlayers from './Components/TwoPlayers'
 import { GAME_EVENTS } from './constants/gameEvents'
 import { BOARD_CONTAINER_SIZE } from './constants/sizes'
 import { ERROR_MSGS } from './constants/texts'
@@ -99,7 +96,7 @@ const GameRoom = () => {
 
   return (
     <GameContainer>
-      <RoomDetailsAndActions>
+      <div className='details-and-actions'>
         <Heading>
           {roomId}
           <CopyToClipboard text={roomId} onCopy={handleOnCopy}>
@@ -116,9 +113,9 @@ const GameRoom = () => {
             <Button onClick={rollDice}>Roll Dice</Button>
           )}
         {myPlayer?.rank !== 0 && <span>{myPlayer?.rank}</span>}
-      </RoomDetailsAndActions>
-      <PlayersAndBoard>
-        <TwoPlayers>
+      </div>
+      <div className='players-and-board'>
+        <div className='two-players'>
           <Player
             player={players.find(findBySeat(1))}
             currentPlayerSeat={currentPlayerSeat}
@@ -127,7 +124,7 @@ const GameRoom = () => {
             player={players.find(findBySeat(3))}
             currentPlayerSeat={currentPlayerSeat}
           />
-        </TwoPlayers>
+        </div>
         <Stage width={BOARD_CONTAINER_SIZE} height={BOARD_CONTAINER_SIZE}>
           <Board roomId={roomId} />
           {/* react-konvo Stage is not passing store to childs, so this is a workaround*/}
@@ -137,7 +134,7 @@ const GameRoom = () => {
             ))}
           </Provider>
         </Stage>
-        <TwoPlayers>
+        <div className='two-players'>
           <Player
             player={players.find(findBySeat(2))}
             currentPlayerSeat={currentPlayerSeat}
@@ -146,8 +143,8 @@ const GameRoom = () => {
             players={players.find(findBySeat(4))}
             currentPlayerSeat={currentPlayerSeat}
           />
-        </TwoPlayers>
-      </PlayersAndBoard>
+        </div>
+      </div>
       <ToastContainer
         position='top-left'
         autoClose={2000}
