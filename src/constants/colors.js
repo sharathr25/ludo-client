@@ -6,7 +6,8 @@ export const COLORS = {
   BLUE: '#1980EE',
   ORANGE: 'orange',
   WHITE: 'white',
-  BLACK: 'black'
+  BLACK: 'black',
+  TRANSPARENT: 'transparent'
 }
 
 export const SEAT_COLORS = {

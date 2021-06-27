@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { SEAT_COLORS } from '../constants/colors'
+import { SEAT_COLORS, COLORS } from '../constants/colors'
 
 const PLAYER_CIRCLE_SIZE = 120
 
@@ -16,10 +16,11 @@ const PlayerStyledDiv = styled.div`
   font-size: 50px;
   text-transform: uppercase;
   border: 5px solid ${props => SEAT_COLORS[props.player?.seat] || 'black'};
-  color: ${props => (props.active ? 'white' : SEAT_COLORS[props.player?.seat])};
+  color: ${props =>
+    props.active ? COLORS.WHITE : SEAT_COLORS[props.player?.seat]};
   border-radius: 50%;
   background-color: ${props =>
-    props.active ? SEAT_COLORS[props.player?.seat] : 'transparent'};
+    props.active ? SEAT_COLORS[props.player?.seat] : COLORS.TRANSPARENT};
   font-weight: bold;
   white-space: nowrap;
 `

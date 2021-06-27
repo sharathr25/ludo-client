@@ -7,7 +7,7 @@ import DummyPlayerYards from './Components/DummyPlayerYards'
 import DummyPlayerYard from './Components/DummyPlayerYard'
 import Input from './Components/Input'
 import Button from './Components/Button'
-import LudoHeading from './Components/LudoHeading'
+import LudoHero from './Components/LudoHeading'
 import { SEAT_COLORS } from './constants/colors'
 
 const Home = () => {
@@ -62,7 +62,7 @@ const Home = () => {
       <DummyPlayerYards>
         <DummyPlayerYard backgroundColor={SEAT_COLORS[1]}>
           <div className='flex-centered'>
-            <LudoHeading />
+            <LudoHero />
           </div>
         </DummyPlayerYard>
         <DummyPlayerYard backgroundColor={SEAT_COLORS[2]} />
