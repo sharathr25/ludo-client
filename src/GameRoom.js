@@ -11,6 +11,7 @@ import Button from './Components/Button'
 import CopyButton from './Components/CopyButton'
 import Board from './Components/Board'
 import GameContainer from './Components/GameContainer'
+import Dice from './Components/Dice'
 import Heading from './Components/Heading'
 import Pawns from './Components/Pawns'
 import Player from './Components/Player'
@@ -87,7 +88,8 @@ const GameRoom = () => {
     hostId,
     gameStatus,
     actionToTake,
-    currentPlayerSeat
+    currentPlayerSeat,
+    score
   } = game
 
   const myPlayer = players.find(p => p.id === myId)
@@ -95,7 +97,7 @@ const GameRoom = () => {
   const findBySeat = seat => p => p.seat === seat
 
   return (
-    <GameContainer>
+    <GameContainer currentPlayerSeat={currentPlayerSeat}>
       <div className='details-and-actions'>
         <Heading>
           {roomId}
@@ -121,7 +123,7 @@ const GameRoom = () => {
             currentPlayerSeat={currentPlayerSeat}
           />
           <Player
-            player={players.find(findBySeat(3))}
+            player={players.find(findBySeat(4))}
             currentPlayerSeat={currentPlayerSeat}
           />
         </div>
@@ -140,10 +142,15 @@ const GameRoom = () => {
             currentPlayerSeat={currentPlayerSeat}
           />
           <Player
-            players={players.find(findBySeat(4))}
+            player={players.find(findBySeat(3))}
             currentPlayerSeat={currentPlayerSeat}
           />
         </div>
+        {gameStatus == 'ON_GOING' && score && (
+          <div className='dice'>
+            <Dice number={score} />
+          </div>
+        )}
       </div>
       <ToastContainer
         position='top-left'
