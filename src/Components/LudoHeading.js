@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Dice from './Dice'
+import Dice3D from './Dice3D'
 
 const Heading = styled.div`
   display: inline-block;
@@ -12,7 +12,7 @@ const Heading = styled.div`
 const LudoHero = props => (
   <div className='flex-centered'>
     <Heading>LUDO</Heading>
-    <Dice number={Math.floor(Math.random() * 6) + 1} />
+    <Dice3D />
   </div>
 )
 

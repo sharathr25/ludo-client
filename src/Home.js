@@ -8,6 +8,7 @@ import DummyPlayerYard from './Components/DummyPlayerYard'
 import Input from './Components/Input'
 import Button from './Components/Button'
 import LudoHero from './Components/LudoHeading'
+import Dice3D from './Components/Dice3D'
 import { SEAT_COLORS } from './constants/colors'
 
 const Home = () => {
