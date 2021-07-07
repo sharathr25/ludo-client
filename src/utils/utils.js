@@ -148,6 +148,10 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
   )
 }
 
+export const getRadians = deg => (deg * Math.PI) / 180
+
+export const getDegree = radians => (radians * 180) / Math.PI
+
 export function * range (start, end) {
   for (let i = start; i <= end; i++) {
     yield i
