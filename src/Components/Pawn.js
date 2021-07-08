@@ -4,24 +4,15 @@ import { COLORS, SEAT_COLORS } from '../constants/colors'
 import { DISTANCE_TO_CENTER, PAWN_RADIUS } from '../constants/sizes'
 import { GAME_EVENTS } from '../constants/gameEvents'
 import SocketContext from '../SocketContext'
-import { getPath } from '../utils/utils'
+import { addDistance, getPath } from '../utils/utils'
 import { useSelector } from 'react-redux'
 
 const { MOVE_PAWN } = GAME_EVENTS
 
-const addDistance = p => ({
-  ...p,
-  x: p.x + DISTANCE_TO_CENTER,
-  y: p.y + DISTANCE_TO_CENTER
-})
-
-const memoise = (prevProps, nextProps) =>
-  prevProps.pawn.positionNumber === nextProps.pawn.positionNumber &&
-  prevProps.pawn.canMove === nextProps.pawn.canMove
-
 const Pawn = ({ pawn, seat }) => {
   const myId = sessionStorage.getItem('MY_ID')
   const socket = useContext(SocketContext)
+  console.log(socket)
   const [coordinates, setCoordinates] = useState([
     { x: 0, y: 0, positionNumber: 0 }
   ])
@@ -33,7 +24,7 @@ const Pawn = ({ pawn, seat }) => {
       const mySeat = myPlayer?.seat
       return { mySeat }
     },
-    (left, right) => left.mySeat === right.mySeat
+    (oldState, newState) => oldState.mySeat === newState.mySeat
   )
   const { mySeat } = game
 
@@ -46,7 +37,7 @@ const Pawn = ({ pawn, seat }) => {
           : null,
         seat
       })
-      setCoordinates(path.map(addDistance))
+      setCoordinates(path.map(addDistance({ xDistance: DISTANCE_TO_CENTER })))
     }
   }, [pawn.positionNumber])
 
@@ -92,5 +83,9 @@ const Pawn = ({ pawn, seat }) => {
     />
   )
 }
+
+const memoise = (prevProps, nextProps) =>
+  prevProps.pawn.positionNumber === nextProps.pawn.positionNumber &&
+  prevProps.pawn.canMove === nextProps.pawn.canMove
 
 export default React.memo(Pawn, memoise)

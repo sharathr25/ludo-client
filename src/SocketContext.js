@@ -1,7 +1,5 @@
 import React from 'react'
-import Socket from './api/socket'
 
-const socket = new Socket()
-const SocketContext = React.createContext(socket)
+const SocketContext = React.createContext({})
 
 export default SocketContext

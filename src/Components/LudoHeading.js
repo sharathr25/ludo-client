@@ -1,6 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import Dice3D from './Dice3D'
+import { flexCentered } from '../styles/flex'
+
+const HeadingWrapper = styled.div`
+  ${flexCentered}
+`
 
 const Heading = styled.div`
   display: inline-block;
@@ -9,11 +14,11 @@ const Heading = styled.div`
   font-size: 60px;
 `
 
-const LudoHero = props => (
-  <div className='flex-centered'>
+const LudoHero = () => (
+  <HeadingWrapper>
     <Heading>LUDO</Heading>
     <Dice3D />
-  </div>
+  </HeadingWrapper>
 )
 
 export default LudoHero

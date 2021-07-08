@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 import { Provider } from 'react-redux'
 import GameRoom from './GameRoom'
 import Home from './Home'
 import store from './redux/store'
+import Socket from './api/socket'
+import SocketContext from './SocketContext'
 
 const GlobalStyles = createGlobalStyle`
   html {
@@ -20,20 +22,23 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const App = () => {
+  const socket = useRef(new Socket())
   return (
     <>
       <GlobalStyles />
       <Provider store={store}>
-        <Router>
-          <Switch>
-            <Route path='/' exact>
-              <Home />
-            </Route>
-            <Route path='/room/:roomId'>
-              <GameRoom />
-            </Route>
-          </Switch>
-        </Router>
+        <SocketContext.Provider value={socket.current}>
+          <Router>
+            <Switch>
+              <Route path='/' exact>
+                <Home />
+              </Route>
+              <Route path='/room/:roomId'>
+                <GameRoom />
+              </Route>
+            </Switch>
+          </Router>
+        </SocketContext.Provider>
       </Provider>
     </>
   )

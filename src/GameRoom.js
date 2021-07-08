@@ -7,7 +7,6 @@ import { useParams } from 'react-router'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import SocketContext from './SocketContext'
-import Button from './Components/Button'
 import CopyButton from './Components/CopyButton'
 import Board from './Components/Board'
 import GameContainer from './Components/GameContainer'
@@ -17,20 +16,17 @@ import Pawns from './Components/Pawns'
 import Player from './Components/Player'
 import { GAME_EVENTS } from './constants/gameEvents'
 import { BOARD_CONTAINER_SIZE } from './constants/sizes'
-import { ERROR_MSGS } from './constants/texts'
 import { updateGame } from './redux/gameSlice'
 import store from './redux/store'
+import StartGame from './Components/StartGame'
+import RollDice from './Components/RollDice'
+import useSocketEventHandler from './hooks/useSocketEventHandler'
 
 const {
   GET_GAME_STATE,
   GET_GAME_STATE_NOTIFY,
   MOVE_PAWN_NOTIFY,
-  PLAYER_JOINED_NOTIFY,
-  ROLL_DICE,
-  ROLL_DICE_NOTIFY,
-  START_GAME,
-  START_GAME_ERROR,
-  START_GAME_NOTIFY
+  PLAYER_JOINED_NOTIFY
 } = GAME_EVENTS
 
 const GameRoom = () => {
@@ -50,47 +46,30 @@ const GameRoom = () => {
     }
   }, [])
 
-  useEffect(() => {
-    socket.receive(PLAYER_JOINED_NOTIFY, res => {
-      dispatch(updateGame(res))
-    })
-    socket.receive(GET_GAME_STATE_NOTIFY, res => {
-      dispatch(updateGame(res))
-    })
-    socket.receive(START_GAME_NOTIFY, res => {
-      dispatch(updateGame(res))
-    })
-    socket.receive(ROLL_DICE_NOTIFY, res => {
-      dispatch(updateGame(res))
-    })
-    socket.receive(MOVE_PAWN_NOTIFY, res => {
-      dispatch(updateGame(res))
-    })
-    socket.receive(START_GAME_ERROR, res => {
-      toast.error(ERROR_MSGS[res.reason])
-    })
-  }, [])
-
-  const startGame = () => {
-    socket.send(START_GAME)
+  const dispatchUpdateGame = res => {
+    dispatch(updateGame(res))
   }
 
-  const rollDice = () => {
-    socket.send(ROLL_DICE, { playerId: myId })
-  }
+  useSocketEventHandler(socket, [
+    {
+      eventName: PLAYER_JOINED_NOTIFY,
+      cb: dispatchUpdateGame
+    },
+    {
+      eventName: GET_GAME_STATE_NOTIFY,
+      cb: dispatchUpdateGame
+    },
+    {
+      eventName: MOVE_PAWN_NOTIFY,
+      cb: dispatchUpdateGame
+    }
+  ])
 
   const handleOnCopy = () => {
     toast.info('Copied')
   }
 
-  const {
-    players = [],
-    hostId,
-    gameStatus,
-    actionToTake,
-    currentPlayerSeat,
-    score
-  } = game
+  const { players = [], gameStatus, currentPlayerSeat, score } = game
 
   const myPlayer = players.find(p => p.id === myId)
 
@@ -105,15 +84,8 @@ const GameRoom = () => {
             <CopyButton />
           </CopyToClipboard>
         </Heading>
-        {players.find(p => p.id === myId)?.id === hostId &&
-          gameStatus == 'CREATED' && (
-            <Button onClick={startGame}>Start Game</Button>
-          )}
-        {myPlayer?.seat === currentPlayerSeat &&
-          gameStatus == 'ON_GOING' &&
-          actionToTake === 'ROLL_DICE' && (
-            <Button onClick={rollDice}>Roll Dice</Button>
-          )}
+        <StartGame />
+        <RollDice />
         {myPlayer?.rank !== 0 && <span>{myPlayer?.rank}</span>}
       </div>
       <div className='players-and-board'>
@@ -129,11 +101,13 @@ const GameRoom = () => {
         </div>
         <Stage width={BOARD_CONTAINER_SIZE} height={BOARD_CONTAINER_SIZE}>
           <Board roomId={roomId} />
-          {/* react-konvo Stage is not passing store to childs, so this is a workaround*/}
+          {/* react-konvo Stage is not passing store and contenxt to childs, so this is a workaround*/}
           <Provider store={store}>
-            {players.map(p => (
-              <Pawns pawns={p.pawns} seat={p.seat} key={p.id} />
-            ))}
+            <SocketContext.Provider value={socket}>
+              {players.map(p => (
+                <Pawns pawns={p.pawns} seat={p.seat} key={p.id} />
+              ))}
+            </SocketContext.Provider>
           </Provider>
         </Stage>
         <div className='two-players'>

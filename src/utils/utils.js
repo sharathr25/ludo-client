@@ -152,6 +152,16 @@ export const getRadians = deg => (deg * Math.PI) / 180
 
 export const getDegree = radians => (radians * 180) / Math.PI
 
+export const addDistance = ({ xDistance, yDistance = xDistance }) => ({
+  x,
+  y,
+  ...rest
+}) => ({
+  ...rest,
+  x: x + xDistance,
+  y: y + yDistance
+})
+
 export function * range (start, end) {
   for (let i = start; i <= end; i++) {
     yield i

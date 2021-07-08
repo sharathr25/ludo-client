@@ -76,7 +76,7 @@ const GROUP_TO_COMPONENT = {
       numPoints={5}
       innerRadius={(DISTANCE_TO_CENTER - 10) / 2}
       outerRadius={DISTANCE_TO_CENTER - 10}
-      key={`START_${i + 1}`}
+      key={`STAR_${i + 1}`}
       fill={COLORS.WHITE}
       stroke={COLORS.BLACK}
     />
