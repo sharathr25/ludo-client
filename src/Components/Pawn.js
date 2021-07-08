@@ -1,18 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { animated, useSpring } from '@react-spring/konva'
 import { COLORS, SEAT_COLORS } from '../constants/colors'
 import { DISTANCE_TO_CENTER, PAWN_RADIUS } from '../constants/sizes'
 import { GAME_EVENTS } from '../constants/gameEvents'
-import SocketContext from '../SocketContext'
 import { addDistance, getPath } from '../utils/utils'
 import { useSelector } from 'react-redux'
 
 const { MOVE_PAWN } = GAME_EVENTS
 
-const Pawn = ({ pawn, seat }) => {
+const Pawn = ({ pawn, seat, socket }) => {
   const myId = sessionStorage.getItem('MY_ID')
-  const socket = useContext(SocketContext)
-  console.log(socket)
   const [coordinates, setCoordinates] = useState([
     { x: 0, y: 0, positionNumber: 0 }
   ])
