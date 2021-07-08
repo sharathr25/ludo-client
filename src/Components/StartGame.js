@@ -6,7 +6,7 @@ import Button from './Button'
 import { GAME_EVENTS } from '../constants/gameEvents'
 import { ERROR_MSGS } from '../constants/texts'
 import { updateGame } from '../redux/gameSlice'
-import useSocketEventHandler from '../hooks/useSocketEventHandler'
+import useSocketEventListener from '../hooks/useSocketEventListener'
 
 const { START_GAME, START_GAME_NOTIFY, START_GAME_ERROR } = GAME_EVENTS
 
@@ -15,7 +15,7 @@ const StartGame = () => {
   const socket = useContext(SocketContext)
   const game = useSelector(state => state.game)
   const dispatch = useDispatch()
-  useSocketEventHandler(socket, [
+  useSocketEventListener(socket, [
     {
       eventName: START_GAME_NOTIFY,
       cb: res => {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const useSocketEventHandler = (socket, events = []) => {
+const useSocketEventListener = (socket, events = []) => {
   useEffect(() => {
     if (!socket?.channel?.topic) return
     events.forEach(({ eventName, cb }) => {
@@ -9,4 +9,4 @@ const useSocketEventHandler = (socket, events = []) => {
   }, [[socket?.channel?.topic]])
 }
 
-export default useSocketEventHandler
+export default useSocketEventListener

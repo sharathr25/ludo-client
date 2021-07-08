@@ -4,7 +4,7 @@ import SocketContext from '../SocketContext'
 import Button from './Button'
 import { GAME_EVENTS } from '../constants/gameEvents'
 import { updateGame } from '../redux/gameSlice'
-import useSocketEventHandler from '../hooks/useSocketEventHandler'
+import useSocketEventListener from '../hooks/useSocketEventListener'
 
 const { ROLL_DICE, ROLL_DICE_NOTIFY } = GAME_EVENTS
 
@@ -13,7 +13,7 @@ const RollDice = () => {
   const socket = useContext(SocketContext)
   const game = useSelector(state => state.game)
   const dispatch = useDispatch()
-  useSocketEventHandler(socket, [
+  useSocketEventListener(socket, [
     {
       eventName: ROLL_DICE_NOTIFY,
       cb: res => {

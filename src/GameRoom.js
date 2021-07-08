@@ -20,7 +20,7 @@ import { updateGame } from './redux/gameSlice'
 import store from './redux/store'
 import StartGame from './Components/StartGame'
 import RollDice from './Components/RollDice'
-import useSocketEventHandler from './hooks/useSocketEventHandler'
+import useSocketEventListener from './hooks/useSocketEventListener'
 
 const {
   GET_GAME_STATE,
@@ -50,7 +50,7 @@ const GameRoom = () => {
     dispatch(updateGame(res))
   }
 
-  useSocketEventHandler(socket, [
+  useSocketEventListener(socket, [
     {
       eventName: PLAYER_JOINED_NOTIFY,
       cb: dispatchUpdateGame
