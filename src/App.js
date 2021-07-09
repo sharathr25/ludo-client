@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { createGlobalStyle } from 'styled-components'
 import { Provider } from 'react-redux'
+
 import GameRoom from './GameRoom'
 import Home from './Home'
 import store from './redux/store'

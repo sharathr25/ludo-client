@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+
 import { SEAT_COLORS, COLORS } from '../constants/colors'
 
 const PLAYER_CIRCLE_SIZE = 120

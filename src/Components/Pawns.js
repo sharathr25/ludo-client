@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Layer } from 'react-konva'
+
 import SocketContext from '../SocketContext'
 import Pawn from './Pawn'
 

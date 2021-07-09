@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { flexCentered } from '../styles/flex'
 
 const DummyPlayerYard = styled.div`

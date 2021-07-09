@@ -1,5 +1,6 @@
 import React from 'react'
 import { Layer, Rect, Line, Text, Circle, Star } from 'react-konva'
+
 import {
   BOARD_SIZE,
   PLAYER_YARD_SIZE,

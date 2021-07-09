@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { animated, useSpring } from '@react-spring/konva'
+
 import { COLORS, SEAT_COLORS } from '../constants/colors'
 import { DISTANCE_TO_CENTER, PAWN_RADIUS } from '../constants/sizes'
 import { GAME_EVENTS } from '../constants/gameEvents'

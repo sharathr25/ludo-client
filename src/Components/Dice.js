@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+
 import { flexCenteredWrap } from '../styles/flex'
 
 const DICE_SIZE = 50

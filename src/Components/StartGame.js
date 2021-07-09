@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+
 import SocketContext from '../SocketContext'
 import Button from './Button'
 import { GAME_EVENTS } from '../constants/gameEvents'

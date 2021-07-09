@@ -1,4 +1,4 @@
-import React, { useRef, useState, Suspense } from 'react'
+import React, { useRef, useState, Suspense, useEffect } from 'react'
 import styled from 'styled-components'
 import { Canvas, useLoader, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
@@ -54,7 +54,7 @@ const Dice = props => {
       } else {
         mesh.current.rotation.x = 0
         mesh.current.rotation.y = 0
-        setScore(Math.floor(Math.random() * 6) + 1)
+        setScore(score)
         setRollDiceActive(true)
         setResetDice(false)
       }
@@ -62,7 +62,7 @@ const Dice = props => {
   })
 
   useFrame(() => {
-    if (rollDiceActive) {
+    if (rollDiceActive && faces[score]) {
       const { x, y } = faces[score]
       if (y && y < 0 && mesh.current.rotation.y > y) {
         mesh.current.rotation.y -= velocity
@@ -73,20 +73,31 @@ const Dice = props => {
       } else if (x && x > 0 && mesh.current.rotation.x < x) {
         mesh.current.rotation.x += velocity
       } else {
-        setScore(0)
         setRollDiceActive(false)
+        setTimeout(() => {
+          props.onDiceRollEnd && props.onDiceRollEnd()
+        }, 1000)
       }
     }
   })
 
-  const rollDice = () => {
-    if (rollDiceActive) return
+  const setDiceScoreAndActive = score => {
+    setScore(score)
     if (mesh.current.rotation.x !== 0 || mesh.current.rotation.y !== 0) {
       setResetDice(true)
     } else {
-      setScore(Math.floor(Math.random() * 6) + 1)
       setRollDiceActive(true)
     }
+  }
+
+  useEffect(() => {
+    if (rollDiceActive || !props.score) return
+    setDiceScoreAndActive(props.score)
+  }, [props.score])
+
+  const rollDice = () => {
+    if (rollDiceActive) return
+    setDiceScoreAndActive(Math.floor(Math.random() * 6) + 1)
   }
 
   return (
@@ -108,7 +119,7 @@ const Dice = props => {
   )
 }
 
-const Dice3D = () => {
+const Dice3D = ({ score, onDiceRollEnd }) => {
   return (
     <CanvasConatiner>
       <Canvas
@@ -120,7 +131,11 @@ const Dice3D = () => {
         }}
       >
         <Suspense fallback={null}>
-          <Dice position={[0, 0, 1]} />
+          <Dice
+            position={[0, 0, 1]}
+            score={score}
+            onDiceRollEnd={onDiceRollEnd}
+          />
         </Suspense>
       </Canvas>
     </CanvasConatiner>

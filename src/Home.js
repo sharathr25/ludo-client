@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router'
 import { v4 as uuidv4 } from 'uuid'
+
 import createRoomApi from './api/createRoom'
 import SocketContext from './SocketContext'
 import DummyPlayerYards from './Components/DummyPlayerYards'
@@ -8,7 +9,6 @@ import DummyPlayerYard from './Components/DummyPlayerYard'
 import Input from './Components/Input'
 import Button from './Components/Button'
 import LudoHero from './Components/LudoHeading'
-import Dice3D from './Components/Dice3D'
 import { SEAT_COLORS } from './constants/colors'
 
 const Home = () => {

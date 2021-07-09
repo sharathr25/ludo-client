@@ -1,16 +1,16 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { Stage } from 'react-konva'
 import { Provider } from 'react-redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+
 import SocketContext from './SocketContext'
 import CopyButton from './Components/CopyButton'
 import Board from './Components/Board'
 import GameContainer from './Components/GameContainer'
-import Dice from './Components/Dice'
+import Dice3D from './Components/Dice3D'
 import Heading from './Components/Heading'
 import Pawns from './Components/Pawns'
 import Player from './Components/Player'
@@ -21,6 +21,8 @@ import store from './redux/store'
 import StartGame from './Components/StartGame'
 import RollDice from './Components/RollDice'
 import useSocketEventListener from './hooks/useSocketEventListener'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const {
   GET_GAME_STATE,
@@ -34,7 +36,24 @@ const GameRoom = () => {
   const { roomId } = useParams()
   const myId = sessionStorage.getItem('MY_ID')
   const game = useSelector(state => state.game)
+  const {
+    players = [],
+    gameStatus,
+    currentPlayerSeat,
+    score,
+    actionToTake
+  } = game
+  const myPlayer = players.find(p => p.id === myId)
+  const [seatOfCurrentPlayer, setSeatOfCurrentPlayer] = useState(
+    currentPlayerSeat
+  )
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (actionToTake === 'ROLL_DICE') {
+      setSeatOfCurrentPlayer(currentPlayerSeat)
+    }
+  }, [actionToTake])
 
   useEffect(() => {
     const roomId = sessionStorage.getItem('ROOM_ID')
@@ -69,14 +88,14 @@ const GameRoom = () => {
     toast.info('Copied')
   }
 
-  const { players = [], gameStatus, currentPlayerSeat, score } = game
-
-  const myPlayer = players.find(p => p.id === myId)
-
   const findBySeat = seat => p => p.seat === seat
 
+  const onDiceRollEnd = () => {
+    setSeatOfCurrentPlayer(currentPlayerSeat)
+  }
+
   return (
-    <GameContainer currentPlayerSeat={currentPlayerSeat}>
+    <GameContainer currentPlayerSeat={seatOfCurrentPlayer}>
       <div className='details-and-actions'>
         <Heading>
           {roomId}
@@ -122,7 +141,7 @@ const GameRoom = () => {
         </div>
         {gameStatus == 'ON_GOING' && score && (
           <div className='dice'>
-            <Dice number={score} />
+            <Dice3D score={score} onDiceRollEnd={onDiceRollEnd} />
           </div>
         )}
       </div>

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { DESKTOP_BREAKPOINT } from '../constants/sizes'
 import { flexColumnCentered } from '../styles/flex'
 
 const SEAT_TO_DICE_POSITION = {
@@ -26,20 +27,27 @@ const GameContainer = styled.div`
   background-color: black;
   .details-and-actions {
     min-height: 126px;
+    margin-bottom: 25px;
   }
   .two-players {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
+    @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
+      flex-direction: column;
+    }
   }
   .players-and-board {
     position: relative;
-    margin: auto;
     display: flex;
+    flex-direction: column;
     .dice {
       position: absolute;
       transition: all 1s linear;
       ${props => SEAT_TO_DICE_POSITION[props.currentPlayerSeat]}
+    }
+    @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
+      flex-direction: row;
     }
   }
 `
