@@ -12,27 +12,23 @@ const { MOVE_PAWN } = GAME_EVENTS
 const Pawn = ({ pawn, seat, socket }) => {
   const myId = sessionStorage.getItem('MY_ID')
   const [coordinates, setCoordinates] = useState([
-    { x: 0, y: 0, positionNumber: 0 }
+    { x: 0, y: 0, positionNumber: 0, group: 'ORIGIN' }
   ])
-  const game = useSelector(
+  const { mySeat } = useSelector(
     state => {
       const { game } = state
       const { players } = game
       const myPlayer = players.find(p => p.id === myId)
-      const mySeat = myPlayer?.seat
-      return { mySeat }
+      return { mySeat: myPlayer?.seat }
     },
     (oldState, newState) => oldState.mySeat === newState.mySeat
   )
-  const { mySeat } = game
 
   useEffect(() => {
     if (coordinates.length) {
       const path = getPath({
         currentPosition: pawn,
-        prevPosition: coordinates[coordinates.length - 1].positionNumber
-          ? coordinates[coordinates.length - 1]
-          : null,
+        prevPosition: coordinates[coordinates.length - 1],
         seat
       })
       setCoordinates(path.map(addDistance({ xDistance: DISTANCE_TO_CENTER })))
@@ -44,17 +40,15 @@ const Pawn = ({ pawn, seat, socket }) => {
       x: coordinates[0].x,
       y: coordinates[0].y
     },
-    to:
-      coordinates[coordinates.length - 1].positionNumber ===
-        pawn.positionNumber && !pawn.canMove
-        ? coordinates.map(p => ({
-            x: p.x,
-            y: p.y
-          }))
-        : {
-            x: coordinates[coordinates.length - 1].x,
-            y: coordinates[coordinates.length - 1].y
-          }
+    to: coordinates.map(p => ({
+      x: p.x,
+      y: p.y
+    })),
+    onRest: () => {
+      if (coordinates.length > 1) {
+        setCoordinates([coordinates[coordinates.length - 1]])
+      }
+    }
   })
 
   const propsToGlowPawn = useSpring({
