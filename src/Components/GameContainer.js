@@ -4,20 +4,34 @@ import { flexColumnCentered } from '../styles/flex'
 
 const SEAT_TO_DICE_POSITION = {
   1: css`
-    top: 155px;
-    left: 120px;
+    top: 125px;
+    left: 155px;
+    @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
+      top: 160px;
+      left: 65px;
+    }
   `,
   2: css`
-    top: 155px;
-    left: 940px;
+    top: 10%;
+    left: 155px;
+    @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
+      top: 160px;
+      left: 998px;
+    }
   `,
   3: css`
-    top: 550px;
-    left: 940px;
+    top: 940px;
+    right: 155px;
+    @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
+      top: 540px;
+      left: 998px;
+    }
   `,
   4: css`
-    top: 550px;
-    left: 120px;
+    @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
+      top: 540px;
+      left: 65px;
+    }
   `
 }
 
@@ -26,8 +40,7 @@ const GameContainer = styled.div`
   height: 100vh;
   background-color: black;
   .details-and-actions {
-    min-height: 126px;
-    margin-bottom: 25px;
+    display: flex;
   }
   .two-players {
     display: flex;
@@ -45,9 +58,6 @@ const GameContainer = styled.div`
       position: absolute;
       transition: all 1s linear;
       ${props => SEAT_TO_DICE_POSITION[props.currentPlayerSeat]}
-    }
-    @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
-      flex-direction: row;
     }
   }
 `

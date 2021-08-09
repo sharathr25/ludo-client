@@ -94,19 +94,14 @@ const GameRoom = () => {
     setSeatOfCurrentPlayer(currentPlayerSeat)
   }
 
+  const size = Math.min(
+    BOARD_CONTAINER_SIZE,
+    window.innerHeight,
+    window.innerWidth
+  )
+
   return (
     <GameContainer currentPlayerSeat={seatOfCurrentPlayer}>
-      <div className='details-and-actions'>
-        <Heading>
-          {roomId}
-          <CopyToClipboard text={roomId} onCopy={handleOnCopy}>
-            <CopyButton />
-          </CopyToClipboard>
-        </Heading>
-        <StartGame />
-        <RollDice />
-        {myPlayer?.rank !== 0 && <span>{myPlayer?.rank}</span>}
-      </div>
       <div className='players-and-board'>
         <div className='two-players'>
           <Player
@@ -114,11 +109,11 @@ const GameRoom = () => {
             currentPlayerSeat={currentPlayerSeat}
           />
           <Player
-            player={players.find(findBySeat(4))}
+            player={players.find(findBySeat(2))}
             currentPlayerSeat={currentPlayerSeat}
           />
         </div>
-        <Stage width={BOARD_CONTAINER_SIZE} height={BOARD_CONTAINER_SIZE}>
+        <Stage width={size} height={size}>
           <Board roomId={roomId} />
           {/* react-konvo Stage is not passing store and contenxt to childs, so this is a workaround*/}
           <Provider store={store}>
@@ -131,20 +126,32 @@ const GameRoom = () => {
         </Stage>
         <div className='two-players'>
           <Player
-            player={players.find(findBySeat(2))}
-            currentPlayerSeat={currentPlayerSeat}
-          />
-          <Player
             player={players.find(findBySeat(3))}
             currentPlayerSeat={currentPlayerSeat}
           />
+          <Player
+            player={players.find(findBySeat(4))}
+            currentPlayerSeat={currentPlayerSeat}
+          />
         </div>
-        {gameStatus == 'ON_GOING' && score && (
+        {/* {gameStatus == 'ON_GOING' && score && (
           <div className='dice'>
             <Dice3D score={score} onDiceRollEnd={onDiceRollEnd} />
           </div>
-        )}
+        )} */}
       </div>
+      <div className='details-and-actions'>
+        {/* <Heading>
+          {roomId}
+          <CopyToClipboard text={roomId} onCopy={handleOnCopy}>
+            <CopyButton />
+          </CopyToClipboard>
+        </Heading> */}
+        <StartGame />
+        <RollDice />
+        {myPlayer?.rank !== 0 && <span>{myPlayer?.rank}</span>}
+      </div>
+
       <ToastContainer
         position='top-left'
         autoClose={2000}

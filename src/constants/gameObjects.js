@@ -1,4 +1,5 @@
-import { COLORS, SEAT_COLORS } from './colors'
+import { SEAT_COLORS } from './colors'
+import { COLORS } from '../styles/colors'
 import {
   BOARD_CONTAINER_SIZE,
   BOARD_SIZE,
@@ -320,3 +321,7 @@ export default [
   ...winTriangles,
   ...safeSquareStars
 ]
+
+export const START_SQUARES = [undefined, 1, 14, 27, 40]
+export const END_SQUARES = [undefined, 51, 12, 25, 38]
+export const BOARD_END_SQUARE = 52

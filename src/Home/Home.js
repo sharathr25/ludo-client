@@ -2,14 +2,13 @@ import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router'
 import { v4 as uuidv4 } from 'uuid'
 
-import createRoomApi from './api/createRoom'
-import SocketContext from './SocketContext'
-import DummyPlayerYards from './Components/DummyPlayerYards'
-import DummyPlayerYard from './Components/DummyPlayerYard'
-import Input from './Components/Input'
-import Button from './Components/Button'
-import LudoHero from './Components/LudoHeading'
-import { SEAT_COLORS } from './constants/colors'
+import createRoomApi from '../api/createRoom'
+import SocketContext from '../SocketContext'
+import { DummyPlayerYard, DummyPlayerYards } from './styles'
+import Input from '../Components/Input'
+import Button from '../Components/Button'
+import LudoHero from '../Components/LudoHeading'
+import { SEAT_COLORS } from '../constants/colors'
 
 const Home = () => {
   const socket = useContext(SocketContext)
@@ -62,42 +61,36 @@ const Home = () => {
     <div>
       <DummyPlayerYards>
         <DummyPlayerYard backgroundColor={SEAT_COLORS[1]}>
-          <div className='flex-centered'>
-            <LudoHero />
-          </div>
+          <LudoHero />
         </DummyPlayerYard>
         <DummyPlayerYard backgroundColor={SEAT_COLORS[2]} />
         <DummyPlayerYard backgroundColor={SEAT_COLORS[4]}>
-          <div className='flex-centered'>
-            <Input
-              type='text'
-              onChange={handleChange}
-              name='nameForCreate'
-              placeholder='NAME'
-            />
-            <Button onClick={createRoom} disabled={!nameForCreate}>
-              CREATE
-            </Button>
-          </div>
+          <Input
+            type='text'
+            onChange={handleChange}
+            name='nameForCreate'
+            placeholder='NAME'
+          />
+          <Button onClick={createRoom} disabled={!nameForCreate}>
+            CREATE
+          </Button>
         </DummyPlayerYard>
         <DummyPlayerYard backgroundColor={SEAT_COLORS[3]}>
-          <div className='flex-centered'>
-            <Input
-              type='text'
-              onChange={handleChange}
-              name='nameForJoin'
-              placeholder='NAME'
-            />
-            <Input
-              name='roomId'
-              type='text'
-              onChange={handleChange}
-              placeholder='ROOM ID'
-            />
-            <Button onClick={joinRoom} disabled={!nameForJoin || !roomId}>
-              JOIN
-            </Button>
-          </div>
+          <Input
+            type='text'
+            onChange={handleChange}
+            name='nameForJoin'
+            placeholder='NAME'
+          />
+          <Input
+            name='roomId'
+            type='text'
+            onChange={handleChange}
+            placeholder='ROOM ID'
+          />
+          <Button onClick={joinRoom} disabled={!nameForJoin || !roomId}>
+            JOIN
+          </Button>
         </DummyPlayerYard>
       </DummyPlayerYards>
     </div>
