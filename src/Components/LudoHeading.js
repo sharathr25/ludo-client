@@ -11,8 +11,8 @@ const HeadingWrapper = styled.div`
 const Heading = styled.div`
   display: inline-block;
    color: white;
-  letter-spacing: 20px;
-  font-size: 60px;
+  letter-spacing: 2rem;
+  font-size: 10rem;
 `
 
 const LudoHero = () => (

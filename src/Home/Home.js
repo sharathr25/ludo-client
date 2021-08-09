@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import createRoomApi from '../api/createRoom'
 import SocketContext from '../SocketContext'
-import { DummyPlayerYard, DummyPlayerYards } from './styles'
+import { DummyPlayerYard, DummyPlayerYards } from './styledComponents'
 import Input from '../Components/Input'
 import Button from '../Components/Button'
 import LudoHero from '../Components/LudoHeading'
@@ -12,6 +12,7 @@ import { SEAT_COLORS } from '../constants/colors'
 
 const Home = () => {
   const socket = useContext(SocketContext)
+  const history = useHistory()
   const [state, _setState] = useState({
     nameForCreate: '',
     nameForJoin: '',
@@ -22,7 +23,6 @@ const Home = () => {
   const setState = data => {
     _setState({ ...state, ...data })
   }
-  const history = useHistory()
 
   const handleChange = e => {
     setState({ [e.target.name]: e.target.value })
@@ -58,42 +58,40 @@ const Home = () => {
   }
 
   return (
-    <div>
-      <DummyPlayerYards>
-        <DummyPlayerYard backgroundColor={SEAT_COLORS[1]}>
-          <LudoHero />
-        </DummyPlayerYard>
-        <DummyPlayerYard backgroundColor={SEAT_COLORS[2]} />
-        <DummyPlayerYard backgroundColor={SEAT_COLORS[4]}>
-          <Input
-            type='text'
-            onChange={handleChange}
-            name='nameForCreate'
-            placeholder='NAME'
-          />
-          <Button onClick={createRoom} disabled={!nameForCreate}>
-            CREATE
-          </Button>
-        </DummyPlayerYard>
-        <DummyPlayerYard backgroundColor={SEAT_COLORS[3]}>
-          <Input
-            type='text'
-            onChange={handleChange}
-            name='nameForJoin'
-            placeholder='NAME'
-          />
-          <Input
-            name='roomId'
-            type='text'
-            onChange={handleChange}
-            placeholder='ROOM ID'
-          />
-          <Button onClick={joinRoom} disabled={!nameForJoin || !roomId}>
-            JOIN
-          </Button>
-        </DummyPlayerYard>
-      </DummyPlayerYards>
-    </div>
+    <DummyPlayerYards>
+      <DummyPlayerYard backgroundColor={SEAT_COLORS[1]}>
+        <LudoHero />
+      </DummyPlayerYard>
+      <DummyPlayerYard backgroundColor={SEAT_COLORS[2]} />
+      <DummyPlayerYard backgroundColor={SEAT_COLORS[4]}>
+        <Input
+          type='text'
+          onChange={handleChange}
+          name='nameForCreate'
+          placeholder='NAME'
+        />
+        <Button onClick={createRoom} disabled={!nameForCreate}>
+          CREATE
+        </Button>
+      </DummyPlayerYard>
+      <DummyPlayerYard backgroundColor={SEAT_COLORS[3]}>
+        <Input
+          type='text'
+          onChange={handleChange}
+          name='nameForJoin'
+          placeholder='NAME'
+        />
+        <Input
+          name='roomId'
+          type='text'
+          onChange={handleChange}
+          placeholder='ROOM ID'
+        />
+        <Button onClick={joinRoom} disabled={!nameForJoin || !roomId}>
+          JOIN
+        </Button>
+      </DummyPlayerYard>
+    </DummyPlayerYards>
   )
 }
 

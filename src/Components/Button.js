@@ -16,6 +16,7 @@ const Button = styled.button`
    text-align: center;
    position: relative;
   cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
+  min-width: 120px;
 `
 
 export default Button
