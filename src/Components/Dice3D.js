@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Canvas, useLoader, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
+import px2vw from '../utils/px2vw'
 import { getRadians } from '../utils/utils'
 
 import dice1 from '../images/dice/dice_1.svg'
@@ -12,11 +13,11 @@ import dice4 from '../images/dice/dice_4.svg'
 import dice5 from '../images/dice/dice_5.svg'
 import dice6 from '../images/dice/dice_6.svg'
 
-const CANVAS_WIDTH = 50
+const CANVAS_WIDTH = px2vw(50)
 
 const CanvasConatiner = styled.div`
-  width: ${CANVAS_WIDTH}px;
-  height: ${CANVAS_WIDTH}px;
+  width: ${CANVAS_WIDTH};
+  height: ${CANVAS_WIDTH};
 `
 const faces = {
   1: { x: 0, y: 0 },
@@ -83,11 +84,9 @@ const Dice = props => {
 
   const setDiceScoreAndActive = score => {
     setScore(score)
-    if (mesh.current.rotation.x !== 0 || mesh.current.rotation.y !== 0) {
-      setResetDice(true)
-    } else {
-      setRollDiceActive(true)
-    }
+    mesh.current.rotation.x !== 0 || mesh.current.rotation.y !== 0
+      ? setResetDice(true)
+      : setRollDiceActive(true)
   }
 
   useEffect(() => {
@@ -105,7 +104,7 @@ const Dice = props => {
       {...props}
       ref={mesh}
       scale={1}
-      onClick={rollDice}
+      onClick={props.onClick || rollDice}
       rotation={[0, 0, 0]}
     >
       <boxBufferGeometry args={[1, 1, 1]} attach='geometry' />
@@ -119,7 +118,7 @@ const Dice = props => {
   )
 }
 
-const Dice3D = ({ score, onDiceRollEnd }) => {
+const Dice3D = ({ score, onDiceRollEnd, onClick }) => {
   return (
     <CanvasConatiner>
       <Canvas
@@ -135,6 +134,7 @@ const Dice3D = ({ score, onDiceRollEnd }) => {
             position={[0, 0, 1]}
             score={score}
             onDiceRollEnd={onDiceRollEnd}
+            onClick={onClick}
           />
         </Suspense>
       </Canvas>

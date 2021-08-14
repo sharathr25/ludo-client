@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { animated, useSpring } from '@react-spring/konva'
+import { useSelector } from 'react-redux'
 
-import { COLORS, SEAT_COLORS } from '../constants/colors'
+import { SEAT_COLORS } from '../constants/colors'
 import { DISTANCE_TO_CENTER, PAWN_RADIUS } from '../constants/sizes'
 import { GAME_EVENTS } from '../constants/gameEvents'
+import { COLORS } from '../styles/colors'
 import { addDistance, getPath } from '../utils/utils'
-import { useSelector } from 'react-redux'
 
 const { MOVE_PAWN } = GAME_EVENTS
 

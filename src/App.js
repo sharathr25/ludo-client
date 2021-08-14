@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import GameRoom from './GameRoom'
+import Game from './Game'
 import store from './redux/store'
 import Socket from './api/socket'
 import SocketContext from './SocketContext'
@@ -22,7 +22,7 @@ const App = () => {
                 <Home />
               </Route>
               <Route path='/room/:roomId'>
-                <GameRoom />
+                <Game />
               </Route>
             </Switch>
           </Router>

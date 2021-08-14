@@ -9,7 +9,7 @@ import {
   DISTANCE_TO_CENTER
 } from '../constants/sizes'
 import staticGameObjects from '../constants/gameObjects'
-import { COLORS } from '../constants/colors'
+import { COLORS } from '../styles/colors'
 
 const boardX = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2
 const boardY = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2

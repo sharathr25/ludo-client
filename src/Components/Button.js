@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import px2vw from '../utils/px2vw'
 
 const Button = styled.button`
   display: inline-block;
@@ -7,6 +8,7 @@ const Button = styled.button`
    border-radius: 0.15em;
    box-sizing: border-box;
    text-decoration: none;
+  font-size: ${px2vw(20)};
    font-family: 'Roboto', sans-serif;
    text-transform: uppercase;
    font-weight: bold;
@@ -16,7 +18,7 @@ const Button = styled.button`
    text-align: center;
    position: relative;
   cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
-  min-width: 120px;
+  min-width: ${px2vw(120)};
 `
 
 export default Button
