@@ -73,6 +73,7 @@ const Pawn = ({ pawn, seat, socket }) => {
       fill={SEAT_COLORS[seat]}
       radius={PAWN_RADIUS}
       onClick={movePawn}
+      onTouchEnd={movePawn}
     />
   )
 }

@@ -8,14 +8,16 @@ import { ToastContainer } from 'react-toastify'
 import store from '../redux/store'
 import useSocketEventListener from '../hooks/useSocketEventListener'
 import SocketContext from '../SocketContext'
-import Board from '../Components/Board'
-import Pawns from '../Components/Pawns'
-import Player from '../Components/Player'
+import Board from '../components/Board'
+import Pawns from '../components/Pawns'
+import Player from '../components/Player'
+import PlayerActions from '../components/PlayerActions'
 import {
   GameContainer,
   PlayersAndBoard,
   StageAndDice,
-  TwoPlayers
+  TwoPlayers,
+  StageAndActions
 } from './stylesComponents'
 import { GAME_EVENTS } from '../constants/gameEvents'
 import { BOARD_CONTAINER_SIZE } from '../constants/sizes'
@@ -77,36 +79,28 @@ const GameRoom = () => {
           <Player seat={1} />
           <Player seat={isDesktop ? 4 : 2} />
         </TwoPlayers>
-        <StageAndDice>
-          <Stage width={BOARD_CONTAINER_SIZE} height={BOARD_CONTAINER_SIZE}>
-            <Board />
-            {/* react-konvo Stage is not passing store and contenxt to childs, so this is a workaround*/}
-            <Provider store={store}>
-              <SocketContext.Provider value={socket}>
-                {players.map(p => (
-                  <Pawns pawns={p.pawns} seat={p.seat} key={p.id} />
-                ))}
-              </SocketContext.Provider>
-            </Provider>
-          </Stage>
-        </StageAndDice>
+        <StageAndActions>
+          <StageAndDice>
+            <Stage width={BOARD_CONTAINER_SIZE} height={BOARD_CONTAINER_SIZE}>
+              <Board />
+              {/* react-konvo Stage is not passing store and contenxt to childs, so this is a workaround*/}
+              <Provider store={store}>
+                <SocketContext.Provider value={socket}>
+                  {players.map(p => (
+                    <Pawns pawns={p.pawns} seat={p.seat} key={p.id} />
+                  ))}
+                </SocketContext.Provider>
+              </Provider>
+            </Stage>
+          </StageAndDice>
+          {isDesktop && <PlayerActions />}
+        </StageAndActions>
         <TwoPlayers>
           <Player seat={isDesktop ? 2 : 4} />
           <Player seat={3} />
         </TwoPlayers>
+        {!isDesktop && <PlayerActions />}
       </PlayersAndBoard>
-
-      <ToastContainer
-        position='top-left'
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </GameContainer>
   )
 }

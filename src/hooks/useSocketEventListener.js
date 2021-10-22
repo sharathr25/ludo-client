@@ -6,7 +6,7 @@ const useSocketEventListener = (socket, events = []) => {
     events.forEach(({ eventName, cb }) => {
       socket.receive(eventName, cb)
     })
-  }, [[socket?.channel?.topic]])
+  }, [socket?.channel?.topic])
 }
 
 export default useSocketEventListener

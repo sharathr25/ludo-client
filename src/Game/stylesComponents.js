@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { ACTIONS_DIV_HEIGHT } from '../constants/sizes'
 import { DESKTOP_BREAKPOINT } from '../styles/breakpoints'
 import { flexColumnCentered } from '../styles/flex'
 
@@ -45,15 +46,24 @@ export const Dice = styled.div`
 `
 
 export const TwoPlayers = styled.div`
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
+    align-self: flex-start;
+    height: calc(100% - ${ACTIONS_DIV_HEIGHT}px);
     flex-direction: column;
   }
 `
 export const StageAndDice = styled.div`
   position: relative;
+`
+
+export const StageAndActions = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `

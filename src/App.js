@@ -8,6 +8,7 @@ import Socket from './api/socket'
 import SocketContext from './SocketContext'
 import Global from './styles/global'
 import Home from './Home'
+import { ToastContainer } from 'react-toastify'
 
 const App = () => {
   const socket = useRef(new Socket())
@@ -28,6 +29,17 @@ const App = () => {
           </Router>
         </SocketContext.Provider>
       </Provider>
+      <ToastContainer
+        position='top-left'
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   )
 }

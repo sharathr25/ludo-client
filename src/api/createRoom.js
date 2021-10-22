@@ -1,4 +1,5 @@
 import axios from 'axios'
 
-export default payload =>
-  axios.post('http://localhost:5000/api/create_room', payload)
+const API_URL = 'http://localhost:5000'
+
+export default payload => axios.post(`${API_URL}/api/create_room`, payload)
