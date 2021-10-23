@@ -6,7 +6,8 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "test": "jest"
+    "test": "jest",
+    "postbuild": "workbox generateSW"
   },
   "author": "",
   "license": "ISC",

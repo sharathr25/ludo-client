@@ -8,7 +8,6 @@ export const Global = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: ${COLORS.BLACK};
   }
   :root {
         font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
