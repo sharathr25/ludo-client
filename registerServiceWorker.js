@@ -1,6 +1,6 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    const sw = 'service-worker.js' // it is needed because parcel will not recognize this as a file and not precess in its manner
+    const sw = './service-worker.js' // it is needed because parcel will not recognize this as a file and not precess in its manner
     navigator.serviceWorker
       .register(sw)
       .then(registration => {
