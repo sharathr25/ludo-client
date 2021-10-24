@@ -5,6 +5,7 @@ class Socket {
   constructor () {}
 
   connect (data) {
+    console.log(WEBSOCKET_URL)
     this.socket = new PhoenixSocket(WEBSOCKET_URL, { params: data })
     if (this.isSocketConnected()) return this.socket
     this.socket.connect()
