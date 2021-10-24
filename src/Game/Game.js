@@ -3,7 +3,6 @@ import { Stage } from 'react-konva'
 import { Provider } from 'react-redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
-import { ToastContainer } from 'react-toastify'
 
 import store from '../redux/store'
 import useSocketEventListener from '../hooks/useSocketEventListener'
