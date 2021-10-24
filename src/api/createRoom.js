@@ -1,5 +1,4 @@
 import axios from 'axios'
-
-const API_URL = 'http://localhost:5000'
+import { API_URL } from '../config'
 
 export default payload => axios.post(`${API_URL}/api/create_room`, payload)

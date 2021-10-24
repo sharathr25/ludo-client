@@ -1,6 +1,5 @@
 import { Socket as PhoenixSocket } from 'phoenix'
-
-const WEBSOCKET_URL = 'ws://localhost:5000/socket'
+import { WEBSOCKET_URL } from '../config'
 
 class Socket {
   constructor () {}
