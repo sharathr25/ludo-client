@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
+    "start": "node server.js",
+    "start-frontend": "parcel index.html",
     "build": "parcel build index.html",
     "test": "jest",
     "postbuild": "workbox generateSW"
@@ -21,7 +22,8 @@
     "global-jsdom": "^8.1.0",
     "jest": "^27.0.4",
     "jsdom": "^16.6.0",
-    "parcel-bundler": "^1.12.5"
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-compress": "^2.0.2"
   },
   "dependencies": {
     "@react-spring/konva": "^9.1.2",
@@ -29,6 +31,7 @@
     "@reduxjs/toolkit": "^1.6.0",
     "@types/react": "^15.0.0 || ^16.0.0 || ^17.0.0 ",
     "axios": "^0.21.1",
+    "express": "^4.17.1",
     "konva": "^7.2.5",
     "phoenix": "^1.5.9",
     "react": ">=17.0",
@@ -48,5 +51,8 @@
   },
   "browserslist": [
     "last 1 Chrome version"
-  ]
+  ],
+  "engines": {
+    "node": "14.x"
+  }
 }
