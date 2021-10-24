@@ -9,7 +9,7 @@ const Input = styled.input`
   background: transparent;
   border: none;
   border-bottom: 1px solid white;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 
   @media (min-width: ${TABLET_BREAKPOINT}px) {
     font-size: 1.5rem;

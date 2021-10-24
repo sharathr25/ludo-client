@@ -4,30 +4,17 @@ import { DESKTOP_BREAKPOINT } from '../styles/breakpoints'
 import { flexColumnCentered } from '../styles/flex'
 
 export const DummyPlayerYards = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  height: ${window.innerHeight}px;
-
-  @media (min-width: ${TABLET_BREAKPOINT}px) {
-    flex-direction: row;
-  }
-
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  height: 100vh;
   @media (min-width: ${DESKTOP_BREAKPOINT}px) {
-    flex-direction: row;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 `
 
 export const DummyPlayerYard = styled.div`
   ${flexColumnCentered}
-  flex: 1 1 25%;
   background-color: ${props => props.backgroundColor};
-
-  @media (min-width: ${TABLET_BREAKPOINT}px) {
-    flex: 0 0 50%;
-  }
-
-  @media (min-width: ${DESKTOP_BREAKPOINT}px) {
-    flex: 0 0 50%;
-  }
 `

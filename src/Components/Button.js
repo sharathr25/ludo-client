@@ -8,7 +8,7 @@ const Button = styled.button`
    border-radius: 0.15em;
    box-sizing: border-box;
    text-decoration: none;
-  font-size: ${px2vw(25)};
+  font-size: 1.5rem;
    font-family: 'Roboto', sans-serif;
    text-transform: uppercase;
    font-weight: bold;
