@@ -1,5 +1,6 @@
 import { Socket as PhoenixSocket } from 'phoenix'
 import { WEBSOCKET_URL } from '../config'
+import reduxEventDispacher from '../redux/dispatcher'
 
 class Socket {
   constructor () {}
@@ -17,6 +18,7 @@ class Socket {
         .join()
         .receive('ok', response => {
           console.log('joined room')
+          this.listenForIncomingMessages()
           resolve(response)
         })
         .receive('error', error => {
@@ -67,8 +69,12 @@ class Socket {
     })
   }
 
-  receive (event, cb) {
-    this.channel && this.channel.on(event, cb)
+  listenForIncomingMessages () {
+    this.socket.onMessage(message => {
+      const { event, payload, topic, params } = message
+      if (topic === 'phoenix' || event === 'phx_reply') return
+      reduxEventDispacher({ type: event, payload })
+    })
   }
 
   isSocketConnected () {

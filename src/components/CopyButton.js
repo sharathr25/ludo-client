@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const CopyButton = styled.button`
-  width: 10px;
+  width: 15px;
   height: 20px;
   background: transparent;
   border: 1px solid white;

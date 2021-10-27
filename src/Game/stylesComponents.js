@@ -55,6 +55,7 @@ export const TwoPlayers = styled.div`
     align-self: flex-start;
     height: calc(100% - ${ACTIONS_DIV_HEIGHT}px);
     flex-direction: column;
+    padding: 100px 0;
   }
 `
 export const StageAndDice = styled.div`
