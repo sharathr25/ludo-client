@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
 import createRoomApi from '../api/createRoom'

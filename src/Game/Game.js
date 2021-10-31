@@ -22,7 +22,7 @@ import { BOARD_CONTAINER_SIZE } from '../constants/sizes'
 import { DESKTOP_BREAKPOINT } from '../styles/breakpoints'
 
 import 'react-toastify/dist/ReactToastify.css'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 
 const { GET_GAME_STATE } = GAME_EVENTS
 

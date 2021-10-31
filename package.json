@@ -2,7 +2,6 @@
   "name": "ludo-client",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
@@ -14,6 +13,10 @@
   "devDependencies": {
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
+    "@parcel/compressor-brotli": "^2.0.0",
+    "@parcel/compressor-gzip": "^2.0.0",
+    "@parcel/packager-raw-url": "^2.0.0",
+    "@parcel/transformer-webmanifest": "^2.0.0",
     "@testing-library/react": "^11.2.7",
     "@types/jest": "^26.0.23",
     "@welldone-software/why-did-you-render": "^6.1.4",
@@ -21,13 +24,13 @@
     "global-jsdom": "^8.1.0",
     "jest": "^27.0.4",
     "jsdom": "^16.6.0",
-    "parcel-bundler": "^1.12.5",
-    "parcel-plugin-compress": "^2.0.2"
+    "parcel": "^2.0.0"
   },
   "dependencies": {
     "@react-spring/konva": "^9.1.2",
     "@react-three/fiber": "^7.0.6",
     "@reduxjs/toolkit": "^1.6.0",
+    "@swc/helpers": "^0.2.13",
     "@types/react": "^15.0.0 || ^16.0.0 || ^17.0.0 ",
     "axios": "^0.21.1",
     "konva": "^7.2.5",
@@ -43,13 +46,12 @@
     "react-spring": "^9.1.2",
     "react-toastify": "^7.0.4",
     "redux": "^4.1.0",
+    "regenerator-runtime": "^0.13.9",
     "styled-components": "^5.3.0",
     "three": "^0.131.3",
     "uuid": "^8.3.2"
   },
-  "browserslist": [
-    "last 1 Chrome version"
-  ],
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "engines": {
     "node": "14.x"
   }
