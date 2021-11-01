@@ -55,11 +55,6 @@
     "uuid": "^8.3.2"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "targets": {
-    "default": {
-      "includeNodeModules": true
-    }
-  },
   "engines": {
     "node": "14.x"
   }
