@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import { Provider as ReduxProvider } from 'react-redux'
 
 import Game from './Game'
 import store from './redux/store'
@@ -15,7 +15,7 @@ const App = () => {
   return (
     <>
       <Global />
-      <Provider store={store}>
+      <ReduxProvider store={store}>
         <SocketContext.Provider value={socket.current}>
           <Router>
             <Switch>
@@ -28,7 +28,7 @@ const App = () => {
             </Switch>
           </Router>
         </SocketContext.Provider>
-      </Provider>
+      </ReduxProvider>
       <ToastContainer
         position='top-left'
         autoClose={2000}
