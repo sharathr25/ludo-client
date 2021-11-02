@@ -1,7 +1,7 @@
 export const ACTIONS_DIV_HEIGHT = 100
 export const BOARD_CONTAINER_SIZE = Math.min(
   window.innerWidth,
-  window.innerHeight - ACTIONS_DIV_HEIGHT
+  window.innerHeight - 200
 )
 export const NO_OF_SQUARES_BETWEEN_HOMES = 3
 export const NO_OF_SQUARES_ALONG_HOMES = 6

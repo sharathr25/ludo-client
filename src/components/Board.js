@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layer, Rect, Line, Text, Circle, Star } from 'react-konva'
+import { Layer, Rect, Line, Circle, Star } from 'react-konva'
 
 import {
   BOARD_SIZE,
@@ -24,7 +24,6 @@ const square = s => (
       stroke={s.stroke || COLORS.BLACK}
       fill={s.fill || 'transparent'}
     />
-    {/* <Text text={s.positionNumber} x={s.x} y={s.y} /> */}
   </React.Fragment>
 )
 
@@ -58,7 +57,6 @@ const GROUP_TO_COMPONENT = {
         stroke={COLORS.BLACK}
         fill={home.fill}
       />
-      {/* <Text text={s.positionNumber} x={home.x} y={home.y} /> */}
     </React.Fragment>
   ),
   WIN_TRIANGLE: winTriangle => (

@@ -4,8 +4,8 @@ export const COLORS = {
   RED: '#FF0202',
   YELLOW: '#F9CC3C',
   BLUE: '#1980EE',
-  ORANGE: 'orange',
-  WHITE: 'white',
-  BLACK: 'black',
+  ORANGE: '#e74c3c',
+  WHITE: '#ffffff',
+  BLACK: '#000000',
   TRANSPARENT: 'transparent'
 }

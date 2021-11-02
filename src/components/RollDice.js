@@ -6,7 +6,7 @@ import { GAME_EVENTS } from '../constants/gameEvents'
 import Dice3D from './Dice3D'
 import styled from 'styled-components'
 
-const { ROLL_DICE, ROLL_DICE_NOTIFY } = GAME_EVENTS
+const { ROLL_DICE } = GAME_EVENTS
 
 const Wrapper = styled.div`
   cursor: ${props => (props.canTakeAction ? 'pointer' : 'default')};

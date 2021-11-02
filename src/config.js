@@ -1,11 +1,12 @@
-// const host = '192.168.1.33:5000' // host address when connected to wifi to check in mobile
-const host = 'localhost:5000'
+const LOCALHOST = 'localhost:5000'
+const HEROKU = 'thawing-waters-18867.herokuapp.com'
+
 export const WEBSOCKET_URL =
   process.env.NODE_ENV === 'development'
-    ? `ws://${host}/socket`
-    : 'wss://thawing-waters-18867.herokuapp.com/socket'
+    ? `ws://${LOCALHOST}/socket`
+    : `wss://${HEROKU}/socket`
 
 export const API_URL =
   process.env.NODE_ENV === 'development'
-    ? `http://${host}`
-    : 'https://thawing-waters-18867.herokuapp.com'
+    ? `http://${LOCALHOST}`
+    : `https://${HEROKU}`

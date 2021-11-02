@@ -127,7 +127,7 @@ const Dice3D = ({ score, onDiceRollEnd, onClick }) => {
           near: 0.1,
           far: 5,
           position: [0, 0, 5],
-          aspect: CANVAS_SIZE / CANVAS_SIZE
+          aspect: 1
         }}
       >
         <Suspense fallback={null}>

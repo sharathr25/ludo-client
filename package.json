@@ -4,7 +4,7 @@
   "description": "ludo game",
   "source": "index.html",
   "scripts": {
-    "start": "parcel --no-source-maps",
+    "start": "parcel",
     "build": "parcel build",
     "test": "jest",
     "postbuild": "workbox generateSW",

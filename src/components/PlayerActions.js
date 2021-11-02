@@ -12,7 +12,7 @@ const PlayerActionsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  font-size: ${px2vw(30)};
+  font-size: 1.5rem;
   div {
     flex: 0 1 50%;
   }

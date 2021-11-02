@@ -4,14 +4,13 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { toast } from 'react-toastify'
 import CopyButton from './CopyButton'
 import { COLORS } from '../styles/colors'
-import px2vw from '../utils/px2vw'
 
 const CopyRoomCodeStyler = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     color: ${COLORS.WHITE};
-    font-size: ${px2vw(14)};
+    font-size: 1.5rem;
     .label-and-value {
         display: flex;
         flex-direction: column;

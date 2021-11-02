@@ -1,5 +1,7 @@
+import { toast } from 'react-toastify'
 import store from './store'
 import { GAME_EVENTS } from '../constants/gameEvents'
+import { ERROR_MSGS } from '../constants/texts'
 import { updateGame } from './gameSlice'
 
 const {
@@ -10,10 +12,10 @@ const {
   START_GAME_NOTIFY,
   START_GAME_ERROR
 } = GAME_EVENTS
+const { dispatch } = store
 
 const dispatchReduxEvent = action => {
   const { type, payload } = action
-  const { dispatch } = store
   switch (type) {
     case START_GAME_NOTIFY:
     case MOVE_PAWN_NOTIFY:

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { DESKTOP_BREAKPOINT } from '../styles/breakpoints'
 
 export const GameContainer = styled.div`
   display: grid;
@@ -12,6 +13,7 @@ export const GameContainer = styled.div`
     'footer footer';
   align-items: center;
   height: 100vh;
+  width: 100vw;
   background-color: black;
 
   .header {
@@ -42,5 +44,17 @@ export const GameContainer = styled.div`
 
   .footer {
     grid-area: footer;
+  }
+
+  @media (min-width: ${DESKTOP_BREAKPOINT}px) {
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 0.25fr 0.5fr 2fr 0.5fr 0.25fr;
+    grid-template-areas:
+      'header header header'
+      'player-1 stage player-2'
+      '. stage .'
+      'player-4 stage player-3'
+      'footer footer footer';
+    justify-items: center;
   }
 `

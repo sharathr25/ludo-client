@@ -35,6 +35,8 @@ const GameRoom = () => {
     }
   }, [])
 
+  const renderPawns = p => <Pawns pawns={p.pawns} seat={p.seat} key={p.id} />
+
   return (
     <GameContainer>
       <div className='header'>
@@ -52,18 +54,16 @@ const GameRoom = () => {
           {/* react-konvo Stage is not passing store and contenxt to childs, so this is a workaround*/}
           <ReduxProvider store={store}>
             <SocketContext.Provider value={socket}>
-              {players.map(p => (
-                <Pawns pawns={p.pawns} seat={p.seat} key={p.id} />
-              ))}
+              {players.map(renderPawns)}
             </SocketContext.Provider>
           </ReduxProvider>
         </Stage>
       </div>
-      <div className='player-4'>
-        <Player seat={4} />
-      </div>
       <div className='player-3'>
         <Player seat={3} />
+      </div>
+      <div className='player-4'>
+        <Player seat={4} />
       </div>
       <div className='footer'>
         <PlayerActions />
