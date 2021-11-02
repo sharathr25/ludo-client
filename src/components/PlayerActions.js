@@ -3,20 +3,15 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import StartGame from './StartGame'
 import RollDice from './RollDice'
-import { ACTIONS_DIV_HEIGHT } from '../constants/sizes'
 import { COLORS } from '../styles/colors'
 import { SEAT_COLORS } from '../constants/colors'
 import px2vw from '../utils/px2vw'
-import Button from './Button'
-import CopyToClipboard from 'react-copy-to-clipboard'
-import { toast } from 'react-toastify'
 
 const PlayerActionsWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: ${ACTIONS_DIV_HEIGHT}px;
   font-size: ${px2vw(30)};
   div {
     flex: 0 1 50%;
@@ -28,7 +23,7 @@ const Text = styled.div`
 `
 
 const PlayerSeatNumber = styled.span`
-  color: ${props => SEAT_COLORS[props.seat]};
+  color: ${props => SEAT_COLORS[props.children]};
   margin: ${px2vw(2)};
 `
 
@@ -40,10 +35,6 @@ const PlayerActions = () => {
   const isHost = myPlayer?.id === hostId
   const isInTurn = myPlayer?.seat === currentPlayerSeat
 
-  const onCopy = () => {
-    toast.info('Room code copied!!!', { position: 'bottom-right' })
-  }
-
   return (
     <PlayerActionsWrapper>
       {isHost && <StartGame />}
@@ -51,15 +42,10 @@ const PlayerActions = () => {
       {gameStatus == 'ON_GOING' && !isInTurn && (
         <Text>
           Player
-          <PlayerSeatNumber seat={currentPlayerSeat}>
-            {currentPlayerSeat}
-          </PlayerSeatNumber>
+          <PlayerSeatNumber>{currentPlayerSeat}</PlayerSeatNumber>
           turn
         </Text>
       )}
-      <CopyToClipboard text={roomId} onCopy={onCopy}>
-        <Button>COPY ROOM CODE</Button>
-      </CopyToClipboard>
     </PlayerActionsWrapper>
   )
 }

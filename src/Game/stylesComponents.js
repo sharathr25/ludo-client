@@ -1,70 +1,46 @@
-import styled, { css } from 'styled-components'
-import { ACTIONS_DIV_HEIGHT } from '../constants/sizes'
-import { DESKTOP_BREAKPOINT } from '../styles/breakpoints'
-import { flexColumnCentered } from '../styles/flex'
-
-const SEAT_TO_DICE_POSITION = {
-  1: css`
-    top: 125px;
-    left: 155px;
-  `,
-  2: css`
-    top: 10%;
-    left: 155px;
-  `,
-  3: css`
-    bottom: 940px;
-    right: 155px;
-  `,
-  4: css`
-    bottom: 0;
-    left: 0;
-  `
-}
+import styled from 'styled-components'
 
 export const GameContainer = styled.div`
-  ${flexColumnCentered}
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.25fr 0.5fr 2fr 0.5fr 0.25fr;
+  grid-template-areas:
+    'header header'
+    'player-1 player-2'
+    'stage stage'
+    'player-4 player-3'
+    'footer footer';
+  align-items: center;
   height: 100vh;
   background-color: black;
-`
 
-export const PlayersAndBoard = styled.div`
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
-    flex-direction: row;
-    justify-content: center;
+  .header {
+    grid-area: header;
   }
-`
-export const Dice = styled.div`
-  position: absolute;
-  transition: all 1s linear;
-  ${props => SEAT_TO_DICE_POSITION[props.currentPlayerSeat]}
-`
 
-export const TwoPlayers = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  @media only screen and (min-width: ${DESKTOP_BREAKPOINT}px) {
-    align-self: flex-start;
-    height: calc(100% - ${ACTIONS_DIV_HEIGHT}px);
-    flex-direction: column;
-    padding: 100px 0;
+  .player-1 {
+    grid-area: player-1;
   }
-`
-export const StageAndDice = styled.div`
-  position: relative;
-`
 
-export const StageAndActions = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  .player-2 {
+    grid-area: player-2;
+    justify-self: end;
+  }
+
+  .player-3 {
+    grid-area: player-3;
+    justify-self: end;
+  }
+
+  .player-4 {
+    grid-area: player-4;
+  }
+
+  .stage {
+    grid-area: stage;
+  }
+
+  .footer {
+    grid-area: footer;
+  }
 `

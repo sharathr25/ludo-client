@@ -47,8 +47,11 @@ const Player = props => {
   const player = players.find(findBySeat(seat))
   const isInTurn = player?.seat === currentPlayerSeat
   return (
-    <PlayerStyledDiv active={isInTurn} seat={player && seat}>
-      {player?.name.substr(0, 1)}
+    // <PlayerStyledDiv active={isInTurn} seat={player && seat}>
+    //   {player?.name.substr(0, 1)}
+    // </PlayerStyledDiv>
+    <PlayerStyledDiv active={isInTurn} seat={seat}>
+      {seat}
     </PlayerStyledDiv>
   )
 }
