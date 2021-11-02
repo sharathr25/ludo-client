@@ -5,9 +5,9 @@ import { v4 as uuidv4 } from 'uuid'
 import createRoomApi from '../api/createRoom'
 import SocketContext from '../SocketContext'
 import { DummyPlayerYard, DummyPlayerYards } from './styledComponents'
-import Input from '../Components/Input'
-import Button from '../Components/Button'
-import LudoHero from '../Components/LudoHeading'
+import Input from '../components/Input'
+import Button from '../components/Button'
+import LudoHero from '../components/LudoHeading'
 import { SEAT_COLORS } from '../constants/colors'
 
 const Home = () => {

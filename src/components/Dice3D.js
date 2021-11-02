@@ -6,18 +6,18 @@ import * as THREE from 'three'
 import px2vw from '../utils/px2vw'
 import { getRadians } from '../utils/utils'
 
-import dice1 from '../images/dice/dice_1.svg'
-import dice2 from '../images/dice/dice_2.svg'
-import dice3 from '../images/dice/dice_3.svg'
-import dice4 from '../images/dice/dice_4.svg'
-import dice5 from '../images/dice/dice_5.svg'
-import dice6 from '../images/dice/dice_6.svg'
+import dice1 from '../images/dice/dice_1.jpg'
+import dice2 from '../images/dice/dice_2.jpg'
+import dice3 from '../images/dice/dice_3.jpg'
+import dice4 from '../images/dice/dice_4.jpg'
+import dice5 from '../images/dice/dice_5.jpg'
+import dice6 from '../images/dice/dice_6.jpg'
 
-const CANVAS_WIDTH = px2vw(50)
+const CANVAS_SIZE = px2vw(50)
 
 const CanvasConatiner = styled.div`
-  width: ${CANVAS_WIDTH};
-  height: ${CANVAS_WIDTH};
+  width: ${CANVAS_SIZE};
+  height: ${CANVAS_SIZE};
 `
 const faces = {
   1: { x: 0, y: 0 },
@@ -125,8 +125,9 @@ const Dice3D = ({ score, onDiceRollEnd, onClick }) => {
         camera={{
           fov: 17,
           near: 0.1,
-          far: 1000,
-          position: [0, 0, 5]
+          far: 5,
+          position: [0, 0, 5],
+          aspect: CANVAS_SIZE / CANVAS_SIZE
         }}
       >
         <Suspense fallback={null}>
