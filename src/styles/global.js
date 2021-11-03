@@ -18,11 +18,11 @@ export const Global = createGlobalStyle`
       font-size: 100%;
 
       @media (min-width: ${TABLET_BREAKPOINT}px) {
-        font-size: 120%;
+        font-size: 110%;
       }
 
       @media (min-width: ${DESKTOP_BREAKPOINT}px) {
-        font-size: 140%;
+        font-size: 120%;
       }
     }
 
