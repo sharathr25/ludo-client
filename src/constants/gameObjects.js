@@ -45,8 +45,8 @@ function getPlayerHomeSquares (home, playerHomeSize, smallBoxSize) {
   ]
 }
 
-const boardX = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2
-const boardY = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2
+const boardX = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2;
+const boardY = (BOARD_CONTAINER_SIZE - BOARD_SIZE) / 2;
 
 const colors = {
   H1: COLORS.RED,
@@ -89,10 +89,7 @@ const playerHomes = [
 const playerHomeSquares = playerHomes.reduce(
   (acc, cur) => [
     ...acc,
-    ...getPlayerHomeSquares(cur, PLAYER_YARD_SIZE, SMALL_BOX_SIZE).map(s => ({
-      ...s,
-      stroke: COLORS.WHITE
-    }))
+    ...getPlayerHomeSquares(cur, PLAYER_YARD_SIZE, SMALL_BOX_SIZE)
   ],
   []
 )
