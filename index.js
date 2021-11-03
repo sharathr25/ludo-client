@@ -4,7 +4,10 @@ import { hot } from 'react-hot-loader'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './src/App'
+import registerServiceWorker from './registerServiceWorker'
 
 const HotApp = hot(module)(App)
 
-ReactDOM.render(<App />, document.getElementById('root'))
+registerServiceWorker()
+
+ReactDOM.render(<HotApp />, document.getElementById('root'))

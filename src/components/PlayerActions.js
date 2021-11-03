@@ -12,14 +12,11 @@ const PlayerActionsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  color: ${COLORS.WHITE};
   div {
     flex: 0 1 50%;
   }
-`
-
-const Text = styled.div`
-  color: ${COLORS.WHITE};
 `
 
 const PlayerSeatNumber = styled.span`
@@ -40,11 +37,11 @@ const PlayerActions = () => {
       {isHost && <StartGame />}
       {gameStatus == 'ON_GOING' && isInTurn && <RollDice isInTurn={isInTurn} />}
       {gameStatus == 'ON_GOING' && !isInTurn && (
-        <Text>
+        <div>
           Player
           <PlayerSeatNumber>{currentPlayerSeat}</PlayerSeatNumber>
           turn
-        </Text>
+        </div>
       )}
     </PlayerActionsWrapper>
   )

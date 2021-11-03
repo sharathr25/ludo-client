@@ -2,10 +2,9 @@
   "name": "ludo-client",
   "version": "1.0.0",
   "description": "ludo game",
-  "source": "index.html",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build",
+    "start": "parcel serve index.html",
+    "build": "parcel build index.html",
     "test": "jest",
     "postbuild": "workbox generateSW",
     "deploy": "rm -rf dist && npm run build && firebase deploy"

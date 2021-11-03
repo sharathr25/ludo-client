@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { Provider as ReduxProvider } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
 
 import Game from './Game'
 import store from './redux/store'
@@ -8,7 +9,6 @@ import Socket from './api/socket'
 import SocketContext from './SocketContext'
 import Global from './styles/global'
 import Home from './Home'
-import { ToastContainer } from 'react-toastify'
 
 const App = () => {
   const socket = useRef(new Socket())
