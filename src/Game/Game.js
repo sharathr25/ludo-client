@@ -13,7 +13,6 @@ import PlayerActions from '../components/PlayerActions'
 import CopyRoomCode from '../components/CopyRoomCode'
 import { GameContainer } from './stylesComponents'
 import { GAME_EVENTS } from '../constants/gameEvents'
-import { BOARD_CONTAINER_SIZE } from '../constants/sizes'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -35,7 +34,19 @@ const GameRoom = () => {
     }
   }, [])
 
-  const renderPawns = p => <Pawns pawns={p.pawns} seat={p.seat} key={p.id} />
+  const boardContainerSize = Math.min(
+    window.innerWidth,
+    window.innerHeight - 200
+  )
+
+  const renderPawns = p => (
+    <Pawns
+      pawns={p.pawns}
+      seat={p.seat}
+      key={p.id}
+      boardContainerSize={boardContainerSize}
+    />
+  )
 
   return (
     <GameContainer>
@@ -49,8 +60,8 @@ const GameRoom = () => {
         <Player seat={2} />
       </div>
       <div className='stage'>
-        <Stage width={BOARD_CONTAINER_SIZE} height={BOARD_CONTAINER_SIZE}>
-          <Board />
+        <Stage width={boardContainerSize} height={boardContainerSize}>
+          <Board boardContainerSize={boardContainerSize} />
           {/* react-konvo Stage is not passing store and contenxt to childs, so this is a workaround*/}
           <ReduxProvider store={store}>
             <SocketContext.Provider value={socket}>

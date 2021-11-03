@@ -11,6 +11,7 @@ const CopyRoomCodeStyler = styled.div`
     justify-content: center;
     color: ${COLORS.WHITE};
     font-size: 1rem;
+    white-space: nowrap;
     .label-and-value {
         display: flex;
         flex-direction: column;

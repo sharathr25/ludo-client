@@ -47,8 +47,8 @@ export const GameContainer = styled.div`
   }
 
   @media (min-width: ${DESKTOP_BREAKPOINT}px) {
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: 0.25fr 0.5fr 2fr 0.5fr 0.25fr;
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    grid-template-rows: 0.25fr 0.5fr 1fr 0.5fr 0.25fr;
     grid-template-areas:
       'header header header'
       'player-1 stage player-2'

@@ -8,12 +8,11 @@ import { flexCentered } from '../styles/flex'
 
 const PlayerStyledDiv = styled.div`
   ${flexCentered}
-  width: 10rem;
-  height: 10rem;
-  margin: 1rem;
-  padding: 1rem;
+  width: 5rem;
+  height: 5rem;
+  margin: 0.5rem;
   color: ${props => (props.active ? COLORS.WHITE : SEAT_COLORS[props.seat])};
-  font-size: 5rem;
+  font-size: 2.5rem;
   font-weight: bold;
   text-transform: uppercase;
   white-space: nowrap;

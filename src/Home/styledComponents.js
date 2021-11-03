@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { TABLET_BREAKPOINT } from '../constants/sizes'
 import { DESKTOP_BREAKPOINT } from '../styles/breakpoints'
 import { flexColumnCentered } from '../styles/flex'
 

@@ -3,14 +3,17 @@ import { animated, useSpring } from '@react-spring/konva'
 import { useSelector } from 'react-redux'
 
 import { SEAT_COLORS } from '../constants/colors'
-import { DISTANCE_TO_CENTER, PAWN_RADIUS } from '../constants/sizes'
 import { GAME_EVENTS } from '../constants/gameEvents'
 import { COLORS } from '../styles/colors'
-import { addDistance, getPath } from '../utils/utils'
+import {
+  addDistance,
+  getPath,
+  getSizesWithRespectToBoardSize
+} from '../utils/utils'
 
 const { MOVE_PAWN } = GAME_EVENTS
 
-const Pawn = ({ pawn, seat, socket }) => {
+const Pawn = ({ pawn, seat, socket, boardSize }) => {
   const myId = sessionStorage.getItem('MY_ID')
   const [coordinates, setCoordinates] = useState([
     { x: 0, y: 0, positionNumber: 0, group: 'ORIGIN' }
@@ -24,13 +27,17 @@ const Pawn = ({ pawn, seat, socket }) => {
     },
     (oldState, newState) => oldState.mySeat === newState.mySeat
   )
+  const { DISTANCE_TO_CENTER, PAWN_RADIUS } = getSizesWithRespectToBoardSize(
+    boardSize
+  )
 
   useEffect(() => {
     if (coordinates.length) {
       const path = getPath({
         currentPosition: pawn,
         prevPosition: coordinates[coordinates.length - 1],
-        seat
+        seat,
+        boardSize
       })
       setCoordinates(path.map(addDistance({ xDistance: DISTANCE_TO_CENTER })))
     }

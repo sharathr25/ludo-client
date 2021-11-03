@@ -36,10 +36,40 @@ export function getPlayerHomeInnerSquare (home, margin) {
   }
 }
 
-export function getPath ({ currentPosition, prevPosition, seat }) {
+export const getSizesWithRespectToBoardSize = boardSize => {
+  const NO_OF_SQUARES_BETWEEN_HOMES = 3
+  const NO_OF_SQUARES_ALONG_HOMES = 6
+  const SMALL_BOX_SIZE = boardSize / 15
+  const BOARD_SIZE =
+    NO_OF_SQUARES_ALONG_HOMES * SMALL_BOX_SIZE * 2 +
+    NO_OF_SQUARES_BETWEEN_HOMES * SMALL_BOX_SIZE
+  const WIDTH_OF_SQUARES_ALONG_HOME =
+    SMALL_BOX_SIZE * NO_OF_SQUARES_BETWEEN_HOMES
+  const PLAYER_YARD_SIZE =
+    BOARD_SIZE - BOARD_SIZE / 2 - WIDTH_OF_SQUARES_ALONG_HOME / 2
+  const MARGIN_FOR_HOME_INNER_SQUARE = PLAYER_YARD_SIZE / 3
+  const PLAYER_HOME_INNER_SQUARE_SIZE =
+    PLAYER_YARD_SIZE - MARGIN_FOR_HOME_INNER_SQUARE
+  const DISTANCE_TO_CENTER = SMALL_BOX_SIZE / 2
+  const PAWN_RADIUS = boardSize / 60
+  return {
+    NO_OF_SQUARES_BETWEEN_HOMES,
+    NO_OF_SQUARES_ALONG_HOMES,
+    SMALL_BOX_SIZE,
+    BOARD_SIZE,
+    WIDTH_OF_SQUARES_ALONG_HOME,
+    PLAYER_YARD_SIZE,
+    MARGIN_FOR_HOME_INNER_SQUARE,
+    PLAYER_HOME_INNER_SQUARE_SIZE,
+    DISTANCE_TO_CENTER,
+    PAWN_RADIUS
+  }
+}
+
+export function getPath ({ currentPosition, prevPosition, seat, boardSize }) {
   // From ORIGIN
   if (prevPosition.group === 'ORIGIN') {
-    return staticGameObjects
+    return staticGameObjects(boardSize)
       .filter(seatSelector(seat))
       .filter(groupSelector(currentPosition.group))
       .filter(pathSelector([currentPosition.positionNumber]))
@@ -52,7 +82,7 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
       currentPosition.positionNumber
     )
 
-    return staticGameObjects
+    return staticGameObjects(boardSize)
       .filter(pathSelector(pathSquares))
       .filter(groupSelector(currentPosition.group))
   }
@@ -65,8 +95,8 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     const pathSquares2 = [...range(1, currentPosition.positionNumber)]
 
     return [
-      ...staticGameObjects.filter(pathSelector(pathSquares1)),
-      ...staticGameObjects
+      ...staticGameObjects(boardSize).filter(pathSelector(pathSquares1)),
+      ...staticGameObjects(boardSize)
         .filter(pathSelector(pathSquares2))
         .filter(groupSelector(currentPosition.group))
         .filter(seatSelector(seat))
@@ -80,11 +110,11 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     const squaresFrom1to5 = range(1, 5)
 
     return [
-      ...staticGameObjects
+      ...staticGameObjects(boardSize)
         .filter(pathSelector(squaresFrom1to5))
         .filter(groupSelector('HOME_COLUMN'))
         .filter(seatSelector(seat)),
-      ...staticGameObjects
+      ...staticGameObjects(boardSize)
         .filter(seatSelector(seat))
         .filter(groupSelector(currentPosition.group))
         .map(getCentroid)
@@ -100,7 +130,7 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
       currentPosition.positionNumber
     )
 
-    return staticGameObjects
+    return staticGameObjects(boardSize)
       .filter(pathSelector(pathSquares))
       .filter(groupSelector(currentPosition.group))
       .filter(seatSelector(seat))
@@ -113,11 +143,11 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     const pathSquares = range(prevPosition.positionNumber, 5)
 
     return [
-      ...staticGameObjects
+      ...staticGameObjects(boardSize)
         .filter(pathSelector(pathSquares))
         .filter(groupSelector(prevPosition.group))
         .filter(seatSelector(seat)),
-      ...staticGameObjects
+      ...staticGameObjects(boardSize)
         .filter(groupSelector(currentPosition.group))
         .filter(seatSelector(seat))
         .map(getCentroid)
@@ -135,10 +165,10 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     const pathSquares2 = range(1, currentPosition.positionNumber)
 
     return [
-      ...staticGameObjects
+      ...staticGameObjects(boardSize)
         .filter(pathSelector(pathSquares1))
         .filter(groupSelector(currentPosition.group)),
-      ...staticGameObjects
+      ...staticGameObjects(boardSize)
         .filter(pathSelector(pathSquares2))
         .filter(groupSelector(currentPosition.group))
     ]
@@ -150,7 +180,7 @@ export function getPath ({ currentPosition, prevPosition, seat }) {
     currentPosition.positionNumber
   )
 
-  return staticGameObjects
+  return staticGameObjects(boardSize)
     .filter(pathSelector(pathSquares))
     .filter(groupSelector(currentPosition.group))
 }
