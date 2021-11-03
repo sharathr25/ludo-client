@@ -21,7 +21,7 @@ module.exports = {
       }
     },
     {
-      urlPattern: /\.(?:css|js)$/,
+      urlPattern: /\.(?:css|js|br|gz)$/,
       handler: 'NetworkFirst',
       options: {
         cacheName: 'assets'
