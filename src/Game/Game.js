@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Stage } from 'react-konva'
 import { Provider as ReduxProvider } from 'react-redux'
 import { useSelector } from 'react-redux'
@@ -22,6 +22,8 @@ const GameRoom = () => {
   const myId = sessionStorage.getItem('MY_ID')
   const { roomId } = useParams()
   const socket = useContext(SocketContext)
+  const stageDivRef = useRef()
+  const [boardContainerSize, setBoardContainerSize] = useState(0)
   const game = useSelector(state => state.game)
   const { players = [] } = game
 
@@ -34,10 +36,19 @@ const GameRoom = () => {
     }
   }, [])
 
-  const boardContainerSize = Math.min(
-    window.innerWidth,
-    window.innerHeight - 200
-  )
+  const setBoardSizeOnResizeOrMount = () => {
+    if (!stageDivRef.current) return
+    const { offsetHeight, offsetWidth } = stageDivRef.current
+    setBoardContainerSize(Math.min(offsetHeight, offsetWidth))
+  }
+
+  useEffect(() => {
+    setBoardSizeOnResizeOrMount()
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('resize', setBoardSizeOnResizeOrMount)
+  })
 
   const renderPawns = p => (
     <Pawns
@@ -59,7 +70,7 @@ const GameRoom = () => {
       <div className='player-2'>
         <Player seat={2} />
       </div>
-      <div className='stage'>
+      <div className='stage' ref={stageDivRef}>
         <Stage width={boardContainerSize} height={boardContainerSize}>
           <Board boardContainerSize={boardContainerSize} />
           {/* react-konvo Stage is not passing store and contenxt to childs, so this is a workaround*/}

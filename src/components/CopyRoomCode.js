@@ -16,6 +16,7 @@ const CopyRoomCodeStyler = styled.div`
         display: flex;
         flex-direction: column;
         .value {
+            font-size: 0.8rem;
             font-weight: bold;
         }
     }

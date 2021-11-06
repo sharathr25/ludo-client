@@ -40,6 +40,11 @@ export const GameContainer = styled.div`
 
   .stage {
     grid-area: stage;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
   }
 
   .footer {
