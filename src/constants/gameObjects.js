@@ -13,6 +13,43 @@ const colors = {
   H4: COLORS.GREEN
 }
 
+function getPlayerHomeSquares (home, playerHomeSize, smallBoxSize) {
+  return [
+    {
+      positionNumber: 1,
+      group: 'HOME',
+      seat: home.seat,
+      x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
+      y: home.y + playerHomeSize / 6 + smallBoxSize / 2,
+      fill: SEAT_COLORS[home.seat]
+    },
+    {
+      positionNumber: 2,
+      group: 'HOME',
+      seat: home.seat,
+      x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
+      y: home.y + playerHomeSize / 2 + smallBoxSize / 2,
+      fill: SEAT_COLORS[home.seat]
+    },
+    {
+      positionNumber: 3,
+      group: 'HOME',
+      seat: home.seat,
+      x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
+      y: home.y + playerHomeSize / 6 + smallBoxSize / 2,
+      fill: SEAT_COLORS[home.seat]
+    },
+    {
+      positionNumber: 4,
+      group: 'HOME',
+      seat: home.seat,
+      x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
+      y: home.y + playerHomeSize / 2 + smallBoxSize / 2,
+      fill: SEAT_COLORS[home.seat]
+    }
+  ]
+}
+
 export default function (boardSize) {
   const {
     BOARD_SIZE,
@@ -20,43 +57,6 @@ export default function (boardSize) {
     SMALL_BOX_SIZE,
     WIDTH_OF_SQUARES_ALONG_HOME
   } = getSizesWithRespectToBoardSize(boardSize)
-  function getPlayerHomeSquares (home, playerHomeSize, smallBoxSize) {
-    return [
-      {
-        positionNumber: 1,
-        group: 'HOME',
-        seat: home.seat,
-        x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
-        y: home.y + playerHomeSize / 6 + smallBoxSize / 2,
-        fill: SEAT_COLORS[home.seat]
-      },
-      {
-        positionNumber: 2,
-        group: 'HOME',
-        seat: home.seat,
-        x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
-        y: home.y + playerHomeSize / 2 + smallBoxSize / 2,
-        fill: SEAT_COLORS[home.seat]
-      },
-      {
-        positionNumber: 3,
-        group: 'HOME',
-        seat: home.seat,
-        x: home.x + playerHomeSize / 2 + smallBoxSize / 2,
-        y: home.y + playerHomeSize / 6 + smallBoxSize / 2,
-        fill: SEAT_COLORS[home.seat]
-      },
-      {
-        positionNumber: 4,
-        group: 'HOME',
-        seat: home.seat,
-        x: home.x + playerHomeSize / 6 + smallBoxSize / 2,
-        y: home.y + playerHomeSize / 2 + smallBoxSize / 2,
-        fill: SEAT_COLORS[home.seat]
-      }
-    ]
-  }
-
   const boardX = (boardSize - BOARD_SIZE) / 2
   const boardY = (boardSize - BOARD_SIZE) / 2
 
@@ -94,10 +94,7 @@ export default function (boardSize) {
   const playerHomeSquares = playerHomes.reduce(
     (acc, cur) => [
       ...acc,
-      ...getPlayerHomeSquares(cur, PLAYER_YARD_SIZE, SMALL_BOX_SIZE).map(s => ({
-        ...s,
-        stroke: COLORS.WHITE
-      }))
+      ...getPlayerHomeSquares(cur, PLAYER_YARD_SIZE, SMALL_BOX_SIZE)
     ],
     []
   )
