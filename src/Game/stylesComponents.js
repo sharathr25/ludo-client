@@ -18,24 +18,37 @@ export const GameContainer = styled.div`
 
   .header {
     grid-area: header;
+    padding: 0.1rem;
   }
 
   .player-1 {
     grid-area: player-1;
+    @media (min-width: ${DESKTOP_BREAKPOINT}px) {
+      justify-self: end;
+    }
   }
 
   .player-2 {
     grid-area: player-2;
     justify-self: end;
+    @media (min-width: ${DESKTOP_BREAKPOINT}px) {
+      justify-self: start;
+    }
   }
 
   .player-3 {
     grid-area: player-3;
     justify-self: end;
+    @media (min-width: ${DESKTOP_BREAKPOINT}px) {
+      justify-self: start;
+    }
   }
 
   .player-4 {
     grid-area: player-4;
+    @media (min-width: ${DESKTOP_BREAKPOINT}px) {
+      justify-self: end;
+    }
   }
 
   .stage {
