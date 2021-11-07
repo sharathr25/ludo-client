@@ -1,27 +1,21 @@
 import React from 'react'
 import { Layer, Rect, Line, Circle, Star } from 'react-konva'
 
-import staticGameObjects from '../constants/gameObjects'
+import staticGameObjects from '../logic/gameObjects'
 import { COLORS } from '../styles/colors'
-import { getSizesWithRespectToBoardSize } from '../utils/utils'
+import { getCommunitySquareSize, getPlayerYardSize } from '../logic/sizes'
 
 const Board = ({ boardContainerSize }) => {
-  const {
-    BOARD_SIZE,
-    PLAYER_YARD_SIZE,
-    SMALL_BOX_SIZE,
-    DISTANCE_TO_CENTER
-  } = getSizesWithRespectToBoardSize(boardContainerSize)
-  const boardX = (boardContainerSize - BOARD_SIZE) / 2
-  const boardY = (boardContainerSize - BOARD_SIZE) / 2
+  const communitySquareSize = getCommunitySquareSize(boardContainerSize)
+  const playerYardSize = getPlayerYardSize(boardContainerSize)
 
   const square = s => (
     <React.Fragment key={`${s.positionNumber} ${s.group} ${s.seat}`}>
       <Rect
         x={s.x}
         y={s.y}
-        width={s.width || SMALL_BOX_SIZE}
-        height={s.height || SMALL_BOX_SIZE}
+        width={s.width || communitySquareSize}
+        height={s.height || communitySquareSize}
         stroke={s.stroke || COLORS.BLACK}
         fill={s.fill || 'transparent'}
       />
@@ -34,16 +28,16 @@ const Board = ({ boardContainerSize }) => {
         <Rect
           x={playerHome.x}
           y={playerHome.y}
-          width={PLAYER_YARD_SIZE}
-          height={PLAYER_YARD_SIZE}
+          width={playerYardSize}
+          height={playerYardSize}
           fill={playerHome.fill}
           stroke={COLORS.BLACK}
         />
         <Rect
-          x={playerHome.x + SMALL_BOX_SIZE}
-          y={playerHome.y + SMALL_BOX_SIZE}
-          width={PLAYER_YARD_SIZE - SMALL_BOX_SIZE * 2}
-          height={PLAYER_YARD_SIZE - SMALL_BOX_SIZE * 2}
+          x={playerHome.x + communitySquareSize}
+          y={playerHome.y + communitySquareSize}
+          width={playerYardSize - communitySquareSize * 2}
+          height={playerYardSize - communitySquareSize * 2}
           fill={COLORS.WHITE}
           stroke={COLORS.BLACK}
         />
@@ -52,9 +46,9 @@ const Board = ({ boardContainerSize }) => {
     HOME: home => (
       <React.Fragment key={`${home.positionNumber} ${home.group} ${home.seat}`}>
         <Circle
-          x={home.x + DISTANCE_TO_CENTER}
-          y={home.y + DISTANCE_TO_CENTER}
-          radius={(SMALL_BOX_SIZE + DISTANCE_TO_CENTER) / 2}
+          x={home.x + communitySquareSize / 2}
+          y={home.y + communitySquareSize / 2}
+          radius={(communitySquareSize + communitySquareSize / 2) / 2}
           stroke={COLORS.BLACK}
           fill={home.fill}
         />
@@ -71,11 +65,11 @@ const Board = ({ boardContainerSize }) => {
     ),
     SAFE_SQUARE_STAR: (star, i) => (
       <Star
-        x={star.x + DISTANCE_TO_CENTER}
-        y={star.y + DISTANCE_TO_CENTER}
+        x={star.x + communitySquareSize / 2}
+        y={star.y + communitySquareSize / 2}
         numPoints={5}
-        innerRadius={(DISTANCE_TO_CENTER - 10) / 2}
-        outerRadius={DISTANCE_TO_CENTER - 10}
+        innerRadius={(communitySquareSize / 2 - 10) / 2}
+        outerRadius={communitySquareSize / 2 - 10}
         key={`STAR_${i + 1}`}
         fill={COLORS.WHITE}
         stroke={COLORS.BLACK}
@@ -88,10 +82,10 @@ const Board = ({ boardContainerSize }) => {
   return (
     <Layer>
       <Rect
-        x={boardX}
-        y={boardY}
-        width={BOARD_SIZE}
-        height={BOARD_SIZE}
+        x={0}
+        y={0}
+        width={boardContainerSize}
+        height={boardContainerSize}
         fill={COLORS.LIGHT_GRAY}
         stroke={COLORS.BLACK}
       />

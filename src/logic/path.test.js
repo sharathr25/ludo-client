@@ -1,11 +1,12 @@
-import { getPath } from './utils'
+import { getPath } from './path'
 
 describe('getPath', () => {
   test('initially when we have only current position', () => {
     const path = getPath({
       currentPosition: { positionNumber: 1, group: 'HOME', no: 1 },
-      prevPosition: undefined,
-      seat: 1
+      prevPosition: { group: 'ORIGIN' },
+      seat: 1,
+      boardSize: 750
     })
     expect(path).toHaveLength(1)
     expect(path[0]).toEqual({
@@ -13,7 +14,6 @@ describe('getPath', () => {
       group: 'HOME',
       seat: 1,
       positionNumber: 1,
-      stroke: 'white',
       x: 75,
       y: 75
     })
@@ -22,7 +22,8 @@ describe('getPath', () => {
     const path = getPath({
       currentPosition: { positionNumber: 6, group: 'COMMUNITY', no: 1 },
       prevPosition: { positionNumber: 1, group: 'HOME', no: 1 },
-      seat: 1
+      seat: 1,
+      boardSize: 750
     })
     expect(path).toHaveLength(6)
     expect(path).toEqual([
@@ -38,7 +39,8 @@ describe('getPath', () => {
     const path = getPath({
       currentPosition: { positionNumber: 10, group: 'COMMUNITY', no: 1 },
       prevPosition: { positionNumber: 6, group: 'COMMUNITY', no: 1 },
-      seat: 1
+      seat: 1,
+      boardSize: 750
     })
     expect(path).toHaveLength(5)
     expect(path).toEqual([
@@ -53,7 +55,8 @@ describe('getPath', () => {
     const path = getPath({
       currentPosition: { positionNumber: 2, group: 'HOME_COLUMN', no: 1 },
       prevPosition: { positionNumber: 48, group: 'COMMUNITY', no: 1 },
-      seat: 1
+      seat: 1,
+      boardSize: 750
     })
     expect(path).toHaveLength(6)
     expect(path).toEqual([
@@ -83,7 +86,8 @@ describe('getPath', () => {
     const path = getPath({
       currentPosition: { positionNumber: 2, group: 'HOME_COLUMN', no: 1 },
       prevPosition: { positionNumber: 9, group: 'COMMUNITY', no: 1 },
-      seat: 2
+      seat: 2,
+      boardSize: 750
     })
     expect(path).toHaveLength(6)
     expect(
@@ -107,7 +111,8 @@ describe('getPath', () => {
     const path = getPath({
       currentPosition: { group: 'WIN_TRIANGLE', no: 1, positionNumber: 1 },
       prevPosition: { positionNumber: 2, group: 'HOME_COLUMN', no: 1 },
-      seat: 2
+      seat: 2,
+      boardSize: 750
     })
     expect(path).toHaveLength(5)
     expect(

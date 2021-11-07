@@ -5,13 +5,12 @@ import { useSelector } from 'react-redux'
 import { SEAT_COLORS } from '../constants/colors'
 import { GAME_EVENTS } from '../constants/gameEvents'
 import { COLORS } from '../styles/colors'
-import {
-  addDistance,
-  getPath,
-  getSizesWithRespectToBoardSize
-} from '../utils/utils'
+import { getCommunitySquareSize, getPawnRadius } from '../logic/sizes'
+import { getPath } from '../logic/path'
+import { addDistance } from '../utils/utils'
 
 const { MOVE_PAWN } = GAME_EVENTS
+const { WHITE, BLACK } = COLORS
 
 const Pawn = ({ pawn, seat, socket, boardSize }) => {
   const myId = sessionStorage.getItem('MY_ID')
@@ -27,9 +26,8 @@ const Pawn = ({ pawn, seat, socket, boardSize }) => {
     },
     (oldState, newState) => oldState.mySeat === newState.mySeat
   )
-  const { DISTANCE_TO_CENTER, PAWN_RADIUS } = getSizesWithRespectToBoardSize(
-    boardSize
-  )
+  const communitySquareSize = getCommunitySquareSize(boardSize)
+  const pawnRadius = getPawnRadius(boardSize)
 
   useEffect(() => {
     if (coordinates.length) {
@@ -39,7 +37,9 @@ const Pawn = ({ pawn, seat, socket, boardSize }) => {
         seat,
         boardSize
       })
-      setCoordinates(path.map(addDistance({ xDistance: DISTANCE_TO_CENTER })))
+      setCoordinates(
+        path.map(addDistance({ xDistance: communitySquareSize / 2 }))
+      )
     }
   }, [pawn.positionNumber])
 
@@ -61,10 +61,10 @@ const Pawn = ({ pawn, seat, socket, boardSize }) => {
 
   const propsToGlowPawn = useSpring({
     loop: pawn.canMove,
-    from: { stroke: COLORS.BLACK },
+    from: { stroke: BLACK },
     to: pawn.canMove
-      ? [{ stroke: '#f8f8f8' }, { stroke: COLORS.BLACK }]
-      : [{ stroke: COLORS.BLACK }]
+      ? [{ stroke: WHITE }, { stroke: BLACK }]
+      : [{ stroke: BLACK }]
   })
 
   const movePawn = () => {
@@ -78,7 +78,7 @@ const Pawn = ({ pawn, seat, socket, boardSize }) => {
       {...propsToMovePawn}
       {...propsToGlowPawn}
       fill={SEAT_COLORS[seat]}
-      radius={PAWN_RADIUS}
+      radius={pawnRadius}
       onClick={movePawn}
       onTouchEnd={movePawn}
     />
@@ -87,6 +87,7 @@ const Pawn = ({ pawn, seat, socket, boardSize }) => {
 
 const memoise = (prevProps, nextProps) =>
   prevProps.pawn.positionNumber === nextProps.pawn.positionNumber &&
-  prevProps.pawn.canMove === nextProps.pawn.canMove
+  prevProps.pawn.canMove === nextProps.pawn.canMove &&
+  prevProps.boardSize === nextProps.boardSize
 
 export default React.memo(Pawn, memoise)
