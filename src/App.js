@@ -10,6 +10,8 @@ import SocketContext from './SocketContext'
 import Global from './styles/global'
 import Home from './Home'
 
+import 'react-toastify/dist/ReactToastify.css'
+
 const App = () => {
   const socket = useRef(new Socket())
   return (

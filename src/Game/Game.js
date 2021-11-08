@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Stage } from 'react-konva'
+import { Layer, Stage } from 'react-konva'
 import { Provider as ReduxProvider } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -7,14 +7,12 @@ import { useParams } from 'react-router-dom'
 import store from '../redux/store'
 import SocketContext from '../SocketContext'
 import Board from '../components/Board'
-import Pawns from '../components/Pawns'
 import Player from '../components/Player'
 import PlayerActions from '../components/PlayerActions'
 import CopyRoomCode from '../components/CopyRoomCode'
-import { GameContainer } from './stylesComponents'
+import GameContainer from './GameContainer'
 import { GAME_EVENTS } from '../constants/gameEvents'
-
-import 'react-toastify/dist/ReactToastify.css'
+import Pawn from '../components/Pawn'
 
 const { GET_GAME_STATE } = GAME_EVENTS
 
@@ -50,14 +48,18 @@ const GameRoom = () => {
     window.addEventListener('resize', setBoardSizeOnResizeOrMount)
   })
 
-  const renderPawns = p => (
-    <Pawns
-      pawns={p.pawns}
-      seat={p.seat}
-      key={p.id}
-      boardContainerSize={boardContainerSize}
-    />
-  )
+  const renderPawns = ({ pawns, seat }) => {
+    const renderPawn = (pawn, i) => (
+      <Pawn
+        pawn={pawn}
+        seat={seat}
+        key={i}
+        socket={socket}
+        boardSize={boardContainerSize}
+      />
+    )
+    return <Layer>{pawns.map(renderPawn)}</Layer>
+  }
 
   return (
     <GameContainer>

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "ludo game",
   "scripts": {
-    "start": "parcel serve index.html --no-source-maps",
+    "start": "parcel serve index.html --no-source-maps --no-cache",
     "build": "parcel build index.html",
     "test": "jest",
     "postbuild": "workbox generateSW",
