@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
 
-import px2vw from '../utils/px2vw'
 import { getRadians } from '../utils/utils'
 import { flexColumnCentered } from '../styles/flex'
 
@@ -48,7 +47,7 @@ const Dice = props => {
   )
 }
 
-const Loader = ({ size = px2vw(50) }) => {
+const Loader = ({ size = '3.052rem' }) => {
   return (
     <CanvasConatiner size={size}>
       <Canvas

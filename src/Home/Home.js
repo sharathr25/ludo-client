@@ -9,10 +9,12 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import LudoHero from '../components/LudoHeading'
 import { SEAT_COLORS } from '../constants/colors'
+import FullScreenLoader from '../components/FullScreenLoader'
 
 const Home = () => {
   const socket = useContext(SocketContext)
   const history = useHistory()
+  const [loading, setLoading] = useState(false)
   const [state, _setState] = useState({
     nameForCreate: '',
     nameForJoin: '',
@@ -30,6 +32,7 @@ const Home = () => {
 
   const joinRoom = async () => {
     try {
+      setLoading(true)
       const id = uuidv4()
       socket.connect({ playerId: id })
       await socket.joinChannel(`room:${roomId}`)
@@ -39,11 +42,14 @@ const Home = () => {
       socket.send('JOIN_GAME', { name: nameForJoin, id })
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
   const createRoom = async () => {
     try {
+      setLoading(true)
       const id = uuidv4()
       const { data: roomId } = await createRoomApi({ name: nameForCreate, id })
       socket.connect({ playerId: id })
@@ -54,8 +60,12 @@ const Home = () => {
       socket.send('JOIN_GAME', { name: nameForCreate, id })
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
+
+  if (loading) return <FullScreenLoader />
 
   return (
     <DummyPlayerYards>
