@@ -3,6 +3,7 @@ import { Layer, Stage } from 'react-konva'
 import { Provider as ReduxProvider } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { get } from 'idb-keyval'
 
 import store from '../redux/store'
 import SocketContext from '../SocketContext'
@@ -17,7 +18,7 @@ import Pawn from '../components/Pawn'
 const { GET_GAME_STATE } = GAME_EVENTS
 
 const GameRoom = () => {
-  const myId = sessionStorage.getItem('MY_ID')
+  const [myId, setMyId] = useState(null)
   const { roomId } = useParams()
   const socket = useContext(SocketContext)
   const stageDivRef = useRef()
@@ -26,12 +27,17 @@ const GameRoom = () => {
   const { players = [] } = game
 
   useEffect(() => {
+    if (!myId) return
     socket.connect({ playerId: myId })
     if (roomId && !socket.channel) {
       socket.joinChannel(`room:${roomId}`).then(() => {
         socket.send(GET_GAME_STATE)
       })
     }
+  }, [myId])
+
+  useEffect(() => {
+    get('MY_ID').then(setMyId)
   }, [])
 
   const setBoardSizeOnResizeOrMount = () => {
@@ -53,12 +59,12 @@ const GameRoom = () => {
       <Pawn
         pawn={pawn}
         seat={seat}
-        key={i}
+        key={`${seat}+${i}`}
         socket={socket}
         boardSize={boardContainerSize}
       />
     )
-    return <Layer>{pawns.map(renderPawn)}</Layer>
+    return <Layer key={seat}>{pawns.map(renderPawn)}</Layer>
   }
 
   return (

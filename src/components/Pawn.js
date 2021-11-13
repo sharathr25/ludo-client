@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { animated, useSpring } from '@react-spring/konva'
 import { useSelector } from 'react-redux'
+import { get } from 'idb-keyval'
 
 import { SEAT_COLORS } from '../constants/colors'
 import { GAME_EVENTS } from '../constants/gameEvents'
@@ -13,7 +14,7 @@ const { MOVE_PAWN } = GAME_EVENTS
 const { WHITE, BLACK } = COLORS
 
 const Pawn = ({ pawn, seat, socket, boardSize }) => {
-  const myId = sessionStorage.getItem('MY_ID')
+  const [myId, setMyId] = useState(null)
   const [coordinates, setCoordinates] = useState([
     { x: 0, y: 0, positionNumber: 0, group: 'ORIGIN' }
   ])
@@ -28,6 +29,10 @@ const Pawn = ({ pawn, seat, socket, boardSize }) => {
   )
   const communitySquareSize = getCommunitySquareSize(boardSize)
   const pawnRadius = getPawnRadius(boardSize)
+
+  useState(() => {
+    get('MY_ID').then(setMyId)
+  })
 
   useEffect(() => {
     if (coordinates.length) {

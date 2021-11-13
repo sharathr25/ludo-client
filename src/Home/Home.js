@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
+import { set } from 'idb-keyval'
 
 import createRoomApi from '../api/createRoom'
 import SocketContext from '../SocketContext'
@@ -36,8 +37,8 @@ const Home = () => {
       const id = uuidv4()
       socket.connect({ playerId: id })
       await socket.joinChannel(`room:${roomId}`)
-      sessionStorage.setItem('ROOM_ID', roomId)
-      sessionStorage.setItem('MY_ID', id)
+      set('ROOM_ID', roomId)
+      set('MY_ID', id)
       history.push(`/room/${state.roomId}`)
       socket.send('JOIN_GAME', { name: nameForJoin, id })
     } catch (error) {
@@ -54,8 +55,8 @@ const Home = () => {
       const { data: roomId } = await createRoomApi({ name: nameForCreate, id })
       socket.connect({ playerId: id })
       await socket.joinChannel(`room:${roomId}`)
-      sessionStorage.setItem('ROOM_ID', roomId)
-      sessionStorage.setItem('MY_ID', id)
+      set('ROOM_ID', roomId)
+      set('MY_ID', id)
       history.push(`/room/${roomId}`)
       socket.send('JOIN_GAME', { name: nameForCreate, id })
     } catch (error) {

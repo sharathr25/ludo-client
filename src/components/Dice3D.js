@@ -13,11 +13,9 @@ import dice4 from '../images/dice/dice_4.jpg'
 import dice5 from '../images/dice/dice_5.jpg'
 import dice6 from '../images/dice/dice_6.jpg'
 
-const CANVAS_SIZE = px2vw(50)
-
 const CanvasConatiner = styled.div`
-  width: ${CANVAS_SIZE};
-  height: ${CANVAS_SIZE};
+  width: ${props => props.size};
+  height: ${props => props.size};
 `
 const faces = {
   1: { x: 0, y: 0 },
@@ -118,9 +116,9 @@ const Dice = props => {
   )
 }
 
-const Dice3D = ({ score, onDiceRollEnd, onClick }) => {
+const Dice3D = ({ score, onDiceRollEnd, onClick, size = px2vw(40) }) => {
   return (
-    <CanvasConatiner>
+    <CanvasConatiner size={size}>
       <Canvas
         camera={{
           fov: 17,
