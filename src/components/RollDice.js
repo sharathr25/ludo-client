@@ -10,7 +10,8 @@ import Dice3D from './Dice3D'
 const { ROLL_DICE } = GAME_EVENTS
 
 const Wrapper = styled.div`
-  cursor: ${props => (props.canTakeAction ? 'pointer' : 'default')};
+  margin-left: 10px;
+  cursor: ${props => (props.canTakeAction ? 'pointer' : 'not-allowed')};
 `
 
 const RollDice = () => {

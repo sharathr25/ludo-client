@@ -20,9 +20,9 @@ const CanvasConatiner = styled.div`
 const faces = {
   1: { x: 0, y: 0 },
   2: { x: 0, y: getRadians(90) },
-  3: { x: 0, y: getRadians(180) },
+  3: { x: getRadians(90), y: 0 },
   4: { x: 0, y: getRadians(-90) },
-  5: { x: getRadians(90), y: 0 },
+  5: { x: 0, y: getRadians(180) },
   6: { x: getRadians(-90), y: 0 }
 }
 

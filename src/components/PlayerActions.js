@@ -18,15 +18,17 @@ const PlayerActionsWrapper = styled.div`
 `
 
 const PlayerSeatNumber = styled.span`
-  color: ${props => SEAT_COLORS[props.children]};
+  color: ${props => SEAT_COLORS[props.seat]};
   margin: ${px2vw(2)};
+  text-transform: uppercase;
 `
 
 const PlayerActions = () => {
   const game = useSelector(state => state.game)
-  const { players = [], gameStatus, hostId, currentPlayerSeat, roomId } = game
+  const { players = [], gameStatus, hostId, currentPlayerSeat } = game
   const [myId, setMyId] = useState(null)
   const myPlayer = players.find(p => p.id === myId)
+  const currentPlayer = players.find(p => p.seat === currentPlayerSeat)
   const isHost = myPlayer?.id === hostId
   const isInTurn = myPlayer?.seat === currentPlayerSeat
 
@@ -37,14 +39,16 @@ const PlayerActions = () => {
   return (
     <PlayerActionsWrapper>
       {isHost && <StartGame />}
-      {gameStatus == 'ON_GOING' && isInTurn && <RollDice isInTurn={isInTurn} />}
+      {gameStatus == 'ON_GOING' && isInTurn && <h3>Your Turn</h3>}
       {gameStatus == 'ON_GOING' && !isInTurn && (
         <h3>
-          Player
-          <PlayerSeatNumber>{currentPlayerSeat}</PlayerSeatNumber>
-          turn
+          <PlayerSeatNumber seat={currentPlayerSeat}>
+            {currentPlayer.name}
+          </PlayerSeatNumber>
+          {`'s Turn`}
         </h3>
       )}
+      {gameStatus == 'ON_GOING' && <RollDice />}
     </PlayerActionsWrapper>
   )
 }

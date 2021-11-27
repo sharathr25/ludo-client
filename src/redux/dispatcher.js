@@ -2,7 +2,7 @@ import { toast } from 'react-toastify'
 import store from './store'
 import { GAME_EVENTS } from '../constants/gameEvents'
 import { ERROR_MSGS } from '../constants/texts'
-import { updateGame } from './gameSlice'
+import { updateGame, setCurrentPlayerSeat } from './gameSlice'
 
 const {
   GET_GAME_STATE_NOTIFY,
@@ -24,7 +24,13 @@ const dispatchReduxEvent = action => {
       dispatch(updateGame(payload))
       break
     case ROLL_DICE_NOTIFY:
-      dispatch(updateGame(payload))
+      const { currentPlayerSeat, ...rest } = payload
+      dispatch(updateGame(rest))
+      // setting currentPlayerSeat after a second so that dice roll can complete
+      setTimeout(
+        () => dispatch(setCurrentPlayerSeat(payload.currentPlayerSeat)),
+        1000
+      )
       break
     case START_GAME_ERROR:
       if (ERROR_MSGS[payload.reason]) {

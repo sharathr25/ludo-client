@@ -71,7 +71,7 @@ class Socket {
 
   listenForIncomingMessages () {
     this.socket.onMessage(message => {
-      const { event, payload, topic, params } = message
+      const { event, payload, topic } = message
       if (topic === 'phoenix' || event === 'phx_reply') return
       reduxEventDispacher({ type: event, payload })
     })
