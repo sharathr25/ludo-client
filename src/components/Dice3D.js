@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import { Canvas, useLoader, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-import px2vw from '../utils/px2vw'
-import { getRadians } from '../utils/utils'
+import { px2vw, getRadians } from '../utils'
 
 import dice1 from '../images/dice/dice_1.jpg'
 import dice2 from '../images/dice/dice_2.jpg'

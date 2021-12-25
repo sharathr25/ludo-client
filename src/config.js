@@ -1,4 +1,4 @@
-const LOCALHOST = 'localhost:5000'
+const LOCALHOST = 'localhost:3333'
 const HEROKU = 'thawing-waters-18867.herokuapp.com'
 
 export const WEBSOCKET_URL =

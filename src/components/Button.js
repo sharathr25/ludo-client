@@ -1,11 +1,10 @@
 import styled from 'styled-components'
 import { COLORS } from '../styles/colors'
-import px2vw from '../utils/px2vw'
+import { px2vw } from '../utils'
 
 const Button = styled.button`
   display: inline-block;
   padding: 0.5rem 2rem;
-  margin: 0.5rem;
   border-radius: 0.25rem;
   text-decoration: none;
   font-size: 1rem;

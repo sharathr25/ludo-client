@@ -6,7 +6,7 @@ import StartGame from './StartGame'
 import RollDice from './RollDice'
 import { COLORS } from '../styles/colors'
 import { SEAT_COLORS } from '../constants/colors'
-import px2vw from '../utils/px2vw'
+import { px2vw } from '../utils'
 
 const PlayerActionsWrapper = styled.div`
   display: flex;

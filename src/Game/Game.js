@@ -19,10 +19,10 @@ const { GET_GAME_STATE } = GAME_EVENTS
 
 const GameRoom = () => {
   const [myId, setMyId] = useState(null)
-  const { roomId } = useParams()
-  const socket = useContext(SocketContext)
-  const stageDivRef = useRef()
   const [boardContainerSize, setBoardContainerSize] = useState(0)
+  const { roomId } = useParams()
+  const stageDivRef = useRef()
+  const socket = useContext(SocketContext)
   const game = useSelector(state => state.game)
   const { players = [] } = game
 
@@ -48,11 +48,8 @@ const GameRoom = () => {
 
   useEffect(() => {
     setBoardSizeOnResizeOrMount()
-  }, [])
-
-  useEffect(() => {
     window.addEventListener('resize', setBoardSizeOnResizeOrMount)
-  })
+  }, [])
 
   const renderPawns = ({ pawns, seat }) => {
     const renderPawn = (pawn, i) => (
@@ -81,7 +78,7 @@ const GameRoom = () => {
       <div className='stage' ref={stageDivRef}>
         <Stage width={boardContainerSize} height={boardContainerSize}>
           <Board boardContainerSize={boardContainerSize} />
-          {/* react-konvo Stage is not passing store and contenxt to childs, so this is a workaround*/}
+          {/* react-konvo Stage is not passing store and context to childs, so this is a workaround */}
           <ReduxProvider store={store}>
             <SocketContext.Provider value={socket}>
               {players.map(renderPawns)}

@@ -4,6 +4,7 @@ import { GAME_EVENTS } from '../constants/gameEvents'
 import { ERROR_MSGS } from '../constants/texts'
 import { updateGame, setCurrentPlayerSeat } from './gameSlice'
 
+const DICE_ROLL_WAIT_TIME_IN_MS = 1000
 const {
   GET_GAME_STATE_NOTIFY,
   PLAYER_JOINED_NOTIFY,
@@ -26,10 +27,9 @@ const dispatchReduxEvent = action => {
     case ROLL_DICE_NOTIFY:
       const { currentPlayerSeat, ...rest } = payload
       dispatch(updateGame(rest))
-      // setting currentPlayerSeat after a second so that dice roll can complete
       setTimeout(
         () => dispatch(setCurrentPlayerSeat(payload.currentPlayerSeat)),
-        1000
+        DICE_ROLL_WAIT_TIME_IN_MS
       )
       break
     case START_GAME_ERROR:

@@ -21,3 +21,6 @@ export const addDistance = ({ xDistance, yDistance = xDistance }) => ({
   x: x + xDistance,
   y: y + yDistance
 })
+
+export const px2vw = (size, width = window.innerWidth) =>
+  `${(size / width) * 100}vw`

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
 
-import { getRadians } from '../utils/utils'
+import { getRadians } from '../utils'
 import { flexColumnCentered } from '../styles/flex'
 
 import dice1 from '../images/dice/dice_1.jpg'

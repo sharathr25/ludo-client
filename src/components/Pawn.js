@@ -8,7 +8,7 @@ import { GAME_EVENTS } from '../constants/gameEvents'
 import { COLORS } from '../styles/colors'
 import { getCommunitySquareSize, getPawnRadius } from '../logic/sizes'
 import { getPath } from '../logic/path'
-import { addDistance } from '../utils/utils'
+import { addDistance } from '../utils'
 
 const { MOVE_PAWN } = GAME_EVENTS
 const { WHITE, BLACK } = COLORS

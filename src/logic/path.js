@@ -1,6 +1,6 @@
 import { BOARD_END_SQUARE, END_SQUARES, START_SQUARES } from './constants'
 import staticGameObjects from './gameObjects'
-import { range } from '../utils/utils'
+import { range } from '../utils'
 
 const getCentroid = ({ points, ...rest }) => {
   const [x1, y1, x2, y2, x3, y3] = points
