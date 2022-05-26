@@ -11,7 +11,8 @@ const {
   MOVE_PAWN_NOTIFY,
   ROLL_DICE_NOTIFY,
   START_GAME_NOTIFY,
-  START_GAME_ERROR
+  START_GAME_ERROR,
+  PAWN_CAPTURE_NOTIFY
 } = GAME_EVENTS
 const { dispatch } = store
 
@@ -38,6 +39,9 @@ const dispatchReduxEvent = action => {
       } else {
         console.error(payload)
       }
+      break
+    case PAWN_CAPTURE_NOTIFY:
+      console.log(payload, 'PAWN_CAPTURE_NOTIFY')
       break
     default:
       break
